@@ -18,12 +18,13 @@ from __future__ import print_function
 import datetime
 import pickle
 import os.path
+
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 # If modifying these scopes, delete the file token.pickle.
-SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+SCOPES = ["https://www.googleapis.com/auth/calendar.events"]
 
 
 def get_calendar_api():
@@ -66,22 +67,86 @@ def get_upcoming_events(api, starting_time, number_of_events):
                                       maxResults=number_of_events, singleEvents=True,
                                       orderBy='startTime').execute()
     return events_result.get('items', [])
-    
+
     # Add your methods here.
 
 
+def get_two_years_event(api, starting_time, ending_time):
+
+    events_result = api.events().list(calendarId='primary', timeMin=starting_time,
+                                      timeMax=ending_time, singleEvents=True,
+                                      orderBy='startTime').execute()
+    return events_result.get('items', [])
+
+
+def find_events_by_id(api, name):
+    #the search is done based on the "queried" keyword
+    events_result = api.events().list(calendarId='primary', singleEvents=True,
+                                      orderBy='startTime', q=name).execute()
+    return events_result.get('items', [])
+
+
+def add_attendies(api, att_email, event_id):
+    if att_email[len(att_email)-19:len(att_email)]=="@student.monash.edu":
+
+        events_result = api.events().get(calendarId='primary', eventId=event_id).execute()
+        event = events_result
+        if not event.get('attendees', []):
+            event['attendees'] = []
+        x = {'email': att_email}
+        event['attendees'].append(x)
+        print(event)
+        updated_event = api.events().update(calendarId='primary', eventId=event_id,
+                                            body=event).execute()
+        print(updated_event)
+    else:
+        print("wrong email format")
+def delete_event(api, event_id):
+    # delete the first event first
+    try:
+        api.events().delete(calendarId='primary', eventId=event_id).execute()
+    except:
+        print("no event is existed")
+    return 0;
+
+def add_to_dictionary(events):
+    dic={}
+    for event in events:
+        dic[event['id']] = event['summary']
+    return dic
+
 def main():
     api = get_calendar_api()
-    time_now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
+    time_now = datetime.datetime.utcnow().isoformat() + 'Z'
+    time_end = (datetime.datetime.utcnow() + datetime.timedelta(days=2 * 365)).isoformat() + 'Z'
+    events = get_two_years_event(api, time_now, time_end)
+    add_attendies(api, "aado0002@student.monash.edu", events[1]['id']);
 
-    events = get_upcoming_events(api, time_now, 10)
 
-    if not events:
-        print('No upcoming events found.')
-    for event in events:
-        start = event['start'].get('dateTime', event['start'].get('date'))
-        print(start, event['summary'])
+
+
+
+    # events = get_two_years_event(api, time_now, time_end)
+    # events = find_events_by_id(api, 'arshia')
+    # for event in events:
+    #     eventId = event['id']
+    #     try:
+    #         api.events().delete(calendarId='primary', eventId=eventId).execute()
+    #     except:
+    #         print("event id with id of " + eventId + " has been deleted")
+
+    # events = find_events_by_id(api, "arshia adouli")
+    # print(events)
+    # if not events:
+    #     print('No upcoming events found.')
+    # for event in events:
+    #     start = event['start'].get('dateTime', event['start'].get('date'))
+    #     print(start, event['summary'])
+
+    # add_attendies(api, "arshia adouli", "smoj0002@student.monash.edu")
 
 
 if __name__ == "__main__":  # Prevents the main() function from being called by the test suite runner
     main()
+
+
