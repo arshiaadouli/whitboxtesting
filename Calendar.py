@@ -125,12 +125,12 @@ def get_eventId(events, index):
     return dic[index][0]
 
 def add_attendies(api, att_email, events, index):
-    event_id = get_eventId(events, index);
+    event_id = events[index]['id']
     if att_email[len(att_email)-19:len(att_email)]=="@student.monash.edu":
 
         events_result = api.events().get(calendarId='primary', eventId=event_id).execute()
         event = events_result
-        if not event.get('attendees', []):
+        if event.get('attendees', None)==None:
             event['attendees'] = []
         x = {'email': att_email}
         event['attendees'].append(x)
@@ -142,8 +142,7 @@ def add_attendies(api, att_email, events, index):
     else:
         return "wrong email format"
 def delete_event(api, events, index):
-    dic = add_to_dictionary(events);
-    event_id = dic[index][0]
+    event_id = events[index]['id']
     try:
         api.events().delete(calendarId='primary', eventId=event_id).execute()
     except:
@@ -178,11 +177,6 @@ def delete_reminder(api, events, index, idx_reminder):
 
 
 
-        
-
-
-
-
 def add_to_dictionary(events):
     dic={}
     index = 1;
@@ -191,21 +185,40 @@ def add_to_dictionary(events):
         index+=1;
     return dic
 
+def insert_event(api, summary, start_date, start_time, end_date, end_time):
+    body={'summary':summary, 'start':{'dateTime': start_date+'T'+start_time+'+10:00'}, 'end':{'dateTime': end_date+'T'+end_time+'+10:00'}, 'reminders':{'useDefault':False, 'overrides': []}}
+    api.events().insert(calendarId='primary', body=body).execute()
+
+def add_reminder(api, events, index, method, minutes):
+    if events[index].get('reminders', None)==None:
+        events['index']['reminders'] = {useDefault:'False'}
+    if events[index]['reminders'].get('overrides', None)==None:
+        events[index]['reminders']['overrides']=[]
+    events[index]['reminders']['overrides'].append({'method':method, 'minutes':minutes})
+    api.events().update(calendarId='primary', eventId=events[index]['id'], body=events[index]).execute()
+
 def main():
     api = get_calendar_api()
-
-
-    time_start = datetime.datetime.utcnow().isoformat() + 'Z'
-    time_end = (datetime.datetime.utcnow() + datetime.timedelta(days=2*365)).isoformat() + 'Z'
-    
-
-
+    # insert_event(api, "steve jobs", '2020-10-4', '20:00:00', '2020-10-4', '21:00:00')
     events = get_two_year_event_future(api)
-    
-    # print("the answer:")
-    print(delete_reminder(api, events, 10, 10))
+    # add_reminder(api, events, 2, 'email', 30)
+    add_attendies(api, "yami0001@student.monash.edu", events, 2)
+
+
+
+
+    # time_start = datetime.datetime.utcnow().isoformat() + 'Z'
+    # time_end = (datetime.datetime.utcnow() + datetime.timedelta(days=2*365)).isoformat() + 'Z'
     
 
+
+
+    
+    # # print("the answer:")
+    # # print(delete_reminder(api, events, 2, 2))
+    # # print(add_attendies(api, "ysadasdasdsada@student.monash.edu", events, 1))
+    # # print(delete_reminder(api, events, 1, 0))
+    # events = get_two_year_event_future(api)
 
 
 
