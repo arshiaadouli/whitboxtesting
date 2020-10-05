@@ -2,7 +2,7 @@ import sys
 import unittest
 from unittest.mock import Mock, patch
 # Add other imports here if needed
-from fit2107Ass2.Calendar import Calendar
+import Calendar
 
 
 class CalendarTest(unittest.TestCase):
