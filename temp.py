@@ -1,3 +1,2 @@
-json = {'arshia': 'adouli', 'steve':'jobs'}
-del(json['arshia'])
-print(json)
+json = {'arshia': 'adouli', 'steve': 'jobs', 'roger': 'federer'}
+print(json.get('arshia', 'jobs'))
