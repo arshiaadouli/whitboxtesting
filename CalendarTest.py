@@ -25,21 +25,21 @@ class CalendarTest(unittest.TestCase):
         self.assertEqual(kwargs['maxResults'], num_events)
 
     # # Add more test cases here
-    # @patch('Calendar.open')
-    # def test1(self, mock_api):
-    #     num_events = 2
-    #     time = "2020-08-03T00:00:00.000000Z"
-    #
-    #     calendar = Calendar()
-    #     events = calendar.get_five_year_event_past(mock_api)
-    #     events = calendar.get_two_year_event_future(mock_api)
-    #     events = calendar.get_upcoming_events(mock_api, time, num_events)
-    #     self.assertEqual(
-    #         mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 3
-    #     )
-    #     print(mock_api.events.return_value.list.call_args_list[0])
-    #     print(mock_api.events.return_value.list.call_args_list[1])
-    #     print(mock_api.events.return_value.list.call_args_list[2])
+    @patch('Calendar.open')
+    def test1(self, mock_api):
+        num_events = 2
+        time = "2020-08-03T00:00:00.000000Z"
+
+        calendar = Calendar()
+        events = calendar.get_five_year_event_past(mock_api)
+        events = calendar.get_two_year_event_future(mock_api)
+        events = calendar.get_upcoming_events(mock_api, time, num_events)
+        self.assertEqual(
+            mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 3
+        )
+        print(mock_api.events.return_value.list.call_args_list[0])
+        print(mock_api.events.return_value.list.call_args_list[1])
+        print(mock_api.events.return_value.list.call_args_list[2])
 
 
 
