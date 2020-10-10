@@ -108,13 +108,13 @@ class Calendar:
             if event['reminders']['useDefault']:
                 rem_dur = 10
                 json['reminders'].append({'method':'popup', 'minutes':str(rem_dur)})
-                # array.append({"summary" : event_summary, "reminder_method" : 'popup', "reminder_minutes" : str(rem_dur)})
+
             else:
                 if event['reminders'].get('overrides', [])==[]:
                     break
                 for override in event['reminders']['overrides']:
                     json['reminders'].append({'method': override['method'], 'minutes':str(override['minutes'])})
-                    # array.append({"summary" : event_summary, "reminder_method" : override['method'], "reminder_minutes": str(override['minutes'])})
+
             array.append(json)
         return array
 
@@ -143,8 +143,6 @@ class Calendar:
             updated_event = api.events().update(calendarId='primary', eventId=event_id,
                                                 body=event).execute()
             return updated_event
-        else:
-            return "wrong email format"
 
     def delete_event(self, api, events, index):
         event_id = events[index]['id']
@@ -154,7 +152,7 @@ class Calendar:
             api.events().delete(calendarId='primary', eventId=event_id).execute()
         except:
             print("no event is existed")
-        return 0
+        return "Success"
 
     def delete_reminder(self, api, events, index, idx_reminder):
         if(index > len(events)):
@@ -267,4 +265,4 @@ class Calendar:
 
 calendar = Calendar()
 api = calendar.get_calendar_api()
-print(calendar.get_two_year_event_future(api))
+print(calendar.find_events_by_name(api, "arshia"))
