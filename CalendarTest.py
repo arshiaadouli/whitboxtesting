@@ -33,13 +33,14 @@ class CalendarTest(unittest.TestCase):
         calendar = Calendar()
         events = calendar.get_five_year_event_past(mock_api)
         events = calendar.get_two_year_event_future(mock_api)
-        events = calendar.get_upcoming_events(mock_api, time, num_events)
         self.assertEqual(
-            mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 3
+            mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 2
         )
         print(mock_api.events.return_value.list.call_args_list[0])
         print(mock_api.events.return_value.list.call_args_list[1])
-        print(mock_api.events.return_value.list.call_args_list[2])
+        # print(mock_api.events.return_value.list.call_args_list[2])
+
+        calendar.delete_reminder(mock_api, events, 0, 1000)
 
 
 
