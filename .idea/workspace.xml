@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f53ede9b-ffa7-42ca-b1fd-e795e5a83b2a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.coverage" beforeDir="false" afterPath="$PROJECT_DIR$/.coverage" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Calendar.py" beforeDir="false" afterPath="$PROJECT_DIR$/Calendar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CalendarTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/CalendarTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/status.json" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/status.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/token.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/token.pickle" afterDir="false" />
@@ -33,27 +31,6 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-  </component>
-  <component name="RunManager">
-    <configuration name="Unittests in CalendarTest.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <module name="fit2107Ass2" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/CalendarTest.py&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python tests.Unittests in CalendarTest.py" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -113,9 +90,9 @@
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="16" y="172" key="com.intellij.ide.util.TipDialog/0.0.1280.689@0.0.1280.689" timestamp="1602578676304" />
-    <state x="633" y="0" width="653" height="696" key="dock-window-1" timestamp="1602578742068">
+    <state x="-7" y="0" width="653" height="696" key="dock-window-1" timestamp="1602581498076">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state x="633" y="0" width="653" height="696" key="dock-window-1/0.0.1280.689@0.0.1280.689" timestamp="1602578742068" />
+    <state x="-7" y="0" width="653" height="696" key="dock-window-1/0.0.1280.689@0.0.1280.689" timestamp="1602581498076" />
   </component>
 </project>
