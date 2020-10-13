@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="f53ede9b-ffa7-42ca-b1fd-e795e5a83b2a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.coverage" beforeDir="false" afterPath="$PROJECT_DIR$/.coverage" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Calendar.py" beforeDir="false" afterPath="$PROJECT_DIR$/Calendar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/htmlcov/CalendarTest_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/CalendarTest_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/htmlcov/Calendar_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/Calendar_py.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/htmlcov/status.json" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/status.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/token.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/token.pickle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +35,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Python.CalendarTest">
+  <component name="RunManager" selected="Python.Calendar">
     <configuration name="Calendar" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -55,17 +58,17 @@
       <method v="2" />
     </configuration>
     <configuration name="CalendarTest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="fit2107Ass2" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\ASUS\PycharmProjects\untitled2\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\ASUS\AppData\Local\Programs\Python\Python38-32\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CalendarTest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -75,10 +78,14 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.Calendar" />
+      <item itemvalue="Python.CalendarTest" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.CalendarTest" />
         <item itemvalue="Python.Calendar" />
+        <item itemvalue="Python.CalendarTest" />
       </list>
     </recent_temporary>
   </component>
@@ -104,6 +111,10 @@
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="373" y="0" key="#CalendarTest/0.0.1280.689@0.0.1280.689" timestamp="1602582295241" />
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1602584652320">
+      <screen x="0" y="0" width="1280" height="689" />
+    </state>
+    <state x="96" y="0" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.689@0.0.1280.689" timestamp="1602584652320" />
     <state x="93" y="93" width="1095" height="504" key="#com.intellij.execution.junit2.states.ComparisonFailureState$DiffDialog" timestamp="1602482892503">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
@@ -112,22 +123,22 @@
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="759" y="151" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.689@0.0.1280.689" timestamp="1602488626869" />
-    <state width="620" height="524" key="GridCell.Tab.0.bottom" timestamp="1602583121615">
+    <state width="1259" height="528" key="GridCell.Tab.0.bottom" timestamp="1602585429213">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="620" height="524" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1602583121615" />
-    <state width="620" height="524" key="GridCell.Tab.0.center" timestamp="1602583121614">
+    <state width="1259" height="528" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1602585429213" />
+    <state width="1259" height="528" key="GridCell.Tab.0.center" timestamp="1602585429212">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="620" height="524" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1602583121614" />
-    <state width="620" height="524" key="GridCell.Tab.0.left" timestamp="1602583121611">
+    <state width="1259" height="528" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1602585429212" />
+    <state width="1259" height="528" key="GridCell.Tab.0.left" timestamp="1602585429212">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="620" height="524" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1602583121611" />
-    <state width="620" height="524" key="GridCell.Tab.0.right" timestamp="1602583121615">
+    <state width="1259" height="528" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1602585429212" />
+    <state width="1259" height="528" key="GridCell.Tab.0.right" timestamp="1602585429212">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="620" height="524" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1602583121615" />
+    <state width="1259" height="528" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1602585429212" />
     <state width="1259" height="17" key="GridCell.Tab.1.bottom" timestamp="1602482885329">
       <screen x="0" y="0" width="1280" height="689" />
     </state>

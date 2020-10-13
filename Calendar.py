@@ -104,16 +104,8 @@ class Calendar:
         array=[]
         for event in events:
             event_summary = event.get('summary', 'unnamed')
-            json = {'event_summary': event_summary, 'reminders':[]}
-            if event['reminders']['useDefault']:
-                rem_dur = 10
-                json['reminders'].append({'method':'popup', 'minutes':str(rem_dur)})
-
-            else:
-                if event['reminders'].get('overrides', [])==[]:
-                    break
-                for override in event['reminders']['overrides']:
-                    json['reminders'].append({'method': override['method'], 'minutes':str(override['minutes'])})
+            event_reminders = event.get('reminders', [])
+            json = {'event_summary': event_summary, 'reminders':event_reminders}
 
             array.append(json)
         return array
@@ -122,27 +114,17 @@ class Calendar:
         # the search is done based on the "queried" keyword
         events_result = api.events().list(calendarId='primary', singleEvents=True,
                                           orderBy='startTime', q=name).execute()
-        return events_result.get('items', [])
+        events = events_result.get('items', [])
+        array=[]
+        for event in events:
+            event_summary = event.get('summary', 'unnamed')
+            event_reminders = event.get('reminders', [])
+            json = {'event_summary': event_summary, 'reminders':event_reminders}
 
-    def get_eventId(self, events, index):
-        dic = self.add_to_dictionary(events)
-        return dic[index][0]
+            array.append(json)
+        return array
 
-    def add_attendies(self, api, att_email, events, index):
-        event_id = events[index]['id']
-        if att_email[len(att_email) - 19:len(att_email)] == "@student.monash.edu":
 
-            events_result = api.events().get(calendarId='primary', eventId=event_id).execute()
-            event = events_result
-            if event.get('attendees', None) == None:
-                event['attendees'] = []
-            x = {'email': att_email}
-            event['attendees'].append(x)
-            # print(event)
-
-            updated_event = api.events().update(calendarId='primary', eventId=event_id,
-                                                body=event).execute()
-            return updated_event
 
     def delete_event(self, api, events, index):
         event_id = events[index]['id']
@@ -154,114 +136,18 @@ class Calendar:
             print("no event is existed")
         return "Success"
 
-    def delete_reminder(self, api, events, index, idx_reminder):
-        if(index > len(events)):
-            return "out of index"
-        try:
-            event_reminder = events[index].get('reminders', [])
-            if (event_reminder['useDefault']):
-                events[index]['reminders']['useDefault'] = False
-                events[index]['reminders']['overrides'] = []
-                print(events[index])
-                api.events().update(calendarId='primary', eventId=events[index]['id'], body=events[index]).execute()
-                return "the reminder is removed"
-            else:
-                try:
-                    if events[index]['reminders'].get('overrides', None) != None:
-                        idx = events[index]['reminders']['overrides'][idx_reminder]
-                        print(idx)
-                        events[index]['reminders']['overrides'].remove(idx)
-                        api.events().update(calendarId='primary', eventId=events[index]['id'],
-                                            body=events[index]).execute()
-                        print(events)
-                        return "the reminder is removed"
-                    else:
-                        return "no reminder is existed to be deleted"
 
-                except:
-                    return "overrides index error"
-        except IndexError:
-            return "event index error"
-
-    def add_to_dictionary(self, events):
-        dic = {}
-        index = 1
-        for event in events:
-            dic[index] = [event['id'], event['summary']]
-            index += 1
-        return dic
-
-    def insert_event(self, api, summary, start_date, start_time, end_date, end_time):
-        if summary == '':
-            return "Failed"
-        body = {'summary': summary, 'start': {'dateTime': start_date + 'T' + start_time + '+10:00'},
-                'end': {'dateTime': end_date + 'T' + end_time + '+10:00'},
-                'reminders': {'useDefault': False, 'overrides': []}}
-        events = api.events().insert(calendarId='primary', body=body).execute()
-        return events
-
-    def add_reminder(self, api, events, index, method, minutes):
-        if events[index].get('reminders', None) == None:
-            events['index']['reminders'] = {'useDefault': 'False'}
-        if events[index]['reminders'].get('overrides', None) == None:
-            events[index]['reminders']['overrides'] = []
-        events[index]['reminders']['overrides'].append({'method': method, 'minutes': minutes})
-        api.events().update(calendarId='primary', eventId=events[index]['id'], body=events[index]).execute()
-
-    # def main():
-    #     api = get_calendar_api()
-    #     # insert_event(api, "steve jobs", '2020-10-4', '20:00:00', '2020-10-4', '21:00:00')
-    #     events = get_two_year_event_future(api)
-    #     # add_reminder(api, events, 2, 'email', 30)
-    #     # add_attendies(api, "yami0001@student.monash.edu", events, 2)
-    #     # print(delete_event(my_mock, events, 0))
-    #     print(events)
-
-    # time_start = datetime.datetime.utcnow().isoformat() + 'Z'
-    # time_end = (datetime.datetime.utcnow() + datetime.timedelta(days=2*365)).isoformat() + 'Z'
-
-    # # print("the answer:")
-    # # print(delete_reminder(api, events, 2, 2))
-    # # print(add_attendies(api, "ysadasdasdsada@student.monash.edu", events, 1))
-    # # print(delete_reminder(api, events, 1, 0))
-    # events = get_two_year_event_future(api)
-
-    # events = get_two_years_event_future(api)
-    # event = events[0];
-    # event['reminders']['useDefault'] = False;
-    # event['reminders']['overrides'] = [];
-    # event['reminders']['overrides'].append({'method':'popup', 'minutes':5})
-    # api.events().update(calendarId='primary', eventId = event['id'], body=event).execute()
-
-    # events_result = api.events().list(calendarId='primary', showDeleted=None, singleEvents=True).execute()
-    # events = events_result.get('items', [])
-    # print(events)
-
-    # events = get_two_years_event(api, time_now, time_end)
-    # print(add_to_dictionary(events))
-
-    # add_attendies(api, "aado0003@student.monash.edu", events , 1)
-
-    # print(get_five_year_event_past(api)[0]['start']['dateTime']=='2017')
-
-    # events_result = api.events().list(calendarId='primary', showDeleted=None, singleEvents=True).execute()
-    # events = events_result.get('items', [])
-    # try:
+    #
+    # def add_to_dictionary(self, events):
+    #     dic = {}
+    #     index = 1
     #     for event in events:
-    #         api.events().delete(calendarId='primary', eventId=event['id']).execute()
-    # except:
-    #     pass
+    #         dic[index] = [event['id'], event['summary']]
+    #         index += 1
+    #     return dic
 
-    # api.events().insert(calendarId = 'primary', body={'summary':'arshiaasdasdas', 'start': {'dateTime': '2020-09-28T07:36:49+10:00'}, 'end': {'dateTime': '2020-09-28T08:36:49+10:00'}}).execute()
 
-    # events = get_two_years_event(api, time_now, time_end)
-    # events = find_events_by_id(api, 'arshia')
-    # for event in events:
-    #     eventId = event['id']
-    #     try:
-    #         api.events().delete(calendarId='primary', eventId=eventId).execute()
-    #     except:
-    #         print("event id with id of " + eventId + " has been deleted")
+
 
 calendar = Calendar()
 api = calendar.get_calendar_api()
