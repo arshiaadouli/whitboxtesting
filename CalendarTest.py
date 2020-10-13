@@ -1,5 +1,6 @@
 import sys
 import unittest
+import datetime
 from unittest.mock import Mock, patch
 # Add other imports here if needed
 import calendar
@@ -8,6 +9,7 @@ from Calendar import Calendar
 
 
 class CalendarTest(unittest.TestCase):
+
     # This test tests number of upcoming events.
     def test_get_upcoming_events_number(self):
         num_events = 2
@@ -25,41 +27,85 @@ class CalendarTest(unittest.TestCase):
         args, kwargs = mock_api.events.return_value.list.call_args_list[0]
         self.assertEqual(kwargs['maxResults'], num_events)
 
-    # # Add more test cases here
+    @patch('Calendar.open')
+    def test_two_year_event_future(self, mock_api):
+        cal = Calendar()
+        event = cal.get_two_year_event_future(mock_api)
+
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+        starting_time = time_now = datetime.datetime.utcnow().isoformat() + 'Z'
+        ending_time = (datetime.datetime.utcnow() + datetime.timedelta(days=2 * 365)).isoformat() + 'Z'
+        self.assertEqual(
+            mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+        )
+        self.assertEqual(kwargs['timeMin'][0:20], starting_time[0:20])
+        self.assertEqual(kwargs['timeMax'][0:20], ending_time[0:20])
+
+
+    @patch('Calendar.open')
+    def test_five_year_event_past(self, mock_api):
+        cal = Calendar()
+        event = cal.get_five_year_event_past(mock_api)
+
+
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+        ending_time = datetime.datetime.utcnow().isoformat() + 'Z'
+        starting_time = (datetime.datetime.utcnow() - datetime.timedelta(days=5 * 365)).isoformat() + 'Z'
+        self.assertEqual(
+            mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+        )
+        self.assertEqual(kwargs['timeMin'][0:20], starting_time[0:20])
+        self.assertEqual(kwargs['timeMax'][0:20], ending_time[0:20])
+        # print(kwargs['timeMin'])
+        # print(ending_time)
+        # print(kwargs['timeMax'])
+        # print(starting_time)
+        print(kwargs)
+
+
     @patch('Calendar.open')
     def test1(self, mock_api):
-        num_events = 2
-        time = "2020-08-03T00:00:00.000000Z"
-
-        calendar = Calendar()
-        events = calendar.get_five_year_event_past(mock_api)
-        events = calendar.get_two_year_event_future(mock_api)
-        self.assertEqual(
-            mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 2
-        )
-        print(mock_api.events.return_value.list.call_args_list[0])
-        print(mock_api.events.return_value.list.call_args_list[1])
-        # print(mock_api.events.return_value.list.call_args_list[2])
-
-        calendar.delete_reminder(mock_api, events, 0, 1000)
+        cal = Calendar()
+        event = cal.get_five_year_event_past(mock_api)
+        expected_value = [1, 2, 3]
+        mock_api.events.list.execute.return_value = [1, 2, 3]
+        print(mock_api.events.list.execute())
     @patch('Calendar.open')
-    def test2(self, mock_api):
-        num_events = 2
-        time = "2020-08-03T00:00:00.000000Z"
-        calendar = Calendar()
-        events = calendar.get_upcoming_events(mock_api, time, num_events)
-        result = calendar.delete_event(mock_api, events, 0)
-        print(result)
+    def test_delete_event(self, mock_api):
+        cal = Calendar()
+        event = cal.get_five_year_event_past(mock_api)
 
 
 
+    # # # Add more test cases here
+    # @patch('Calendar.open')
+    # def test1(self, mock_api):
+    #     num_events = 2
+    #     time = "2020-08-03T00:00:00.000000Z"
+    #
+    #     calendar = Calendar()
+    #     events = calendar.get_five_year_event_past(mock_api)
+    #     events = calendar.get_two_year_event_future(mock_api)
+    #     self.assertEqual(
+    #         mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 2
+    #     )
+    #     print(mock_api.events.return_value.list.call_args_list[0])
+    #     print(mock_api.events.return_value.list.call_args_list[1])
+    #     # print(mock_api.events.return_value.list.call_args_list[2])
+    #     print(mock_api.events.return_value.list.return_value.execute.return_value)
+    #     calendar.delete_reminder(mock_api, events, 0, 1000)
 
-
-
-
-
-
-
+    # @patch('Calendar.open')
+    # def two_year_event_future(self, mock_api):
+    #
+    #     cal = Calendar()
+    #     event = cal.get_two_year_event_future(mock_api)
+    #
+    #     args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+    #     starting_time = time_now = datetime.datetime.utcnow().isoformat() + 'Z'
+    #     ending_time = (datetime.datetime.utcnow() + datetime.timedelta(days=2 * 365)).isoformat() + 'Z'
+    #     self.assertEqual(kwargs['timeMin'], starting_time)
+    #     self.assertEqual(kwargs['timeMax'], ending_time)
 
 
 def main():

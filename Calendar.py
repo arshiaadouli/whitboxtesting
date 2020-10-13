@@ -80,13 +80,14 @@ class Calendar:
         time_now = datetime.datetime.utcnow().isoformat() + 'Z'
         time_end = (datetime.datetime.utcnow() + datetime.timedelta(days=2 * 365)).isoformat() + 'Z'
 
-        return self.get_all_events(api, time_now, time_end)
+        return self.getAllEvents(api, time_now, time_end)
 
     def get_five_year_event_past(self, api):
 
         time_end = datetime.datetime.utcnow().isoformat() + 'Z'
         time_start = (datetime.datetime.utcnow() - datetime.timedelta(days=5 * 365)).isoformat() + 'Z'
 
+<<<<<<< Updated upstream
         return self.get_all_events(api, time_start, time_end)
 
     """ for user story 3 - if user selects a specific year,
@@ -102,13 +103,19 @@ class Calendar:
     """
 
     def get_all_events(self, api, starting_time, ending_time):
+=======
+        return self.getAllEvents(api, time_start, time_end)
+>>>>>>> Stashed changes
 
+    def getAllEvents(self, api, starting_time, ending_time):   # new version
         events_result = api.events().list(calendarId='primary', timeMin=starting_time,
                                           timeMax=ending_time, singleEvents=True,
                                           orderBy='startTime', showDeleted=None).execute()
 
         events = events_result.get('items', [])
+        result=[]
 
+<<<<<<< Updated upstream
         # print(events)
         first_stmt = ''
         second_stmt = ''
@@ -129,6 +136,47 @@ class Calendar:
 
             array.append(json)
         return array
+=======
+        for event in events:
+            json = {}
+            json['id'] = event.get('id')
+            json['summary'] = event.get('summary', 'unknown')
+            json['reminders'] = event.get('reminders', [])
+            result.append(json)
+        return result
+
+
+    
+        
+    # def get_all_events(self, api, starting_time, ending_time):
+    #
+    #     events_result = api.events().list(calendarId='primary', timeMin=starting_time,
+    #                                       timeMax=ending_time, singleEvents=True,
+    #                                       orderBy='startTime', showDeleted=None).execute()
+    #
+    #     events = events_result.get('items', [])
+    #
+    #     # print(events)
+    #     first_stmt = ''
+    #     second_stmt = ''
+    #
+    #     array=[]
+    #     for event in events:
+    #         event_summary = event.get('summary', 'unnamed')
+    #         json = {'event_summary': event_summary, 'reminders':[]}
+    #         if event['reminders']['useDefault']:
+    #             rem_dur = 10
+    #             json['reminders'].append({'method':'popup', 'minutes':str(rem_dur)})
+    #
+    #         else:
+    #             if event['reminders'].get('overrides', [])==[]:
+    #                 break
+    #             for override in event['reminders']['overrides']:
+    #                 json['reminders'].append({'method': override['method'], 'minutes':str(override['minutes'])})
+    #
+    #         array.append(json)
+    #     return array
+>>>>>>> Stashed changes
 
     def find_events_by_name(self, api, name):
         # the search is done based on the "queried" keyword
@@ -136,36 +184,27 @@ class Calendar:
                                           orderBy='startTime', q=name).execute()
         return events_result.get('items', [])
 
-    def get_eventId(self, events, index):
-        dic = self.add_to_dictionary(events)
-        return dic[index][0]
+    # def get_eventId(self, events, index):
+    #     dic = self.add_to_dictionary(events)
+    #     return dic[index][0]
 
-    def add_attendies(self, api, att_email, events, index):
-        event_id = events[index]['id']
-        if att_email[len(att_email) - 19:len(att_email)] == "@student.monash.edu":
-
-            events_result = api.events().get(calendarId='primary', eventId=event_id).execute()
-            event = events_result
-            if event.get('attendees', None) == None:
-                event['attendees'] = []
-            x = {'email': att_email}
-            event['attendees'].append(x)
-            # print(event)
-
-            updated_event = api.events().update(calendarId='primary', eventId=event_id,
-                                                body=event).execute()
-            return updated_event
 
     def delete_event(self, api, events, index):
+<<<<<<< Updated upstream
         event_id = events[index]['id']
         if (index > len(events)):
+=======
+        if(index > len(events)):
+>>>>>>> Stashed changes
             return "out of index"
         try:
+            event_id = events[index]['id']
             api.events().delete(calendarId='primary', eventId=event_id).execute()
         except:
             print("no event is existed")
         return "Success"
 
+<<<<<<< Updated upstream
     def delete_reminder(self, api, events, index, idx_reminder):
         if (index > len(events)):
             return "out of index"
@@ -259,23 +298,24 @@ class Calendar:
     # events_result = api.events().list(calendarId='primary', showDeleted=None, singleEvents=True).execute()
     # events = events_result.get('items', [])
     # try:
+=======
+    
+    # def add_to_dictionary(self, events):
+    #     dic = {}
+    #     index = 1
+>>>>>>> Stashed changes
     #     for event in events:
-    #         api.events().delete(calendarId='primary', eventId=event['id']).execute()
-    # except:
-    #     pass
-
-    # api.events().insert(calendarId = 'primary', body={'summary':'arshiaasdasdas', 'start': {'dateTime': '2020-09-28T07:36:49+10:00'}, 'end': {'dateTime': '2020-09-28T08:36:49+10:00'}}).execute()
-
-    # events = get_two_years_event(api, time_now, time_end)
-    # events = find_events_by_id(api, 'arshia')
-    # for event in events:
-    #     eventId = event['id']
-    #     try:
-    #         api.events().delete(calendarId='primary', eventId=eventId).execute()
-    #     except:
-    #         print("event id with id of " + eventId + " has been deleted")
+    #         dic[index] = [event['id'], event['summary']]
+    #         index += 1
+    #     return dic
 
 
 calendar = Calendar()
 api = calendar.get_calendar_api()
+<<<<<<< Updated upstream
 print(calendar.find_events_by_name(api, "arshia"))
+=======
+events = calendar.get_two_year_event_future(api)
+# print(calendar.delete_event(api, events, 0))
+print(events)
+>>>>>>> Stashed changes
