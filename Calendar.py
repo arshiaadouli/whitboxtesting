@@ -89,6 +89,18 @@ class Calendar:
 
         return self.get_all_events(api, time_start, time_end)
 
+    """ for user story 3 - if user selects a specific year,
+    them start time would be 1st Jan of that year and
+    end time would be 31 dec of that year
+    if user selects month then start time would be 1st of that month
+    and end time would be 28/29/30/31 of that month of either the
+    current year or we can ask user to enter year. but asking user
+    to enter year as well in this case might be easier
+    if user selects date then we can ask for date, month and year
+    and start time = end time (maybe +1) = date entered
+    this is to be done by the function call
+    """
+
     def get_all_events(self, api, starting_time, ending_time):
 
         events_result = api.events().list(calendarId='primary', timeMin=starting_time,
@@ -101,19 +113,19 @@ class Calendar:
         first_stmt = ''
         second_stmt = ''
 
-        array=[]
+        array = []
         for event in events:
             event_summary = event.get('summary', 'unnamed')
-            json = {'event_summary': event_summary, 'reminders':[]}
+            json = {'event_summary': event_summary, 'reminders': []}
             if event['reminders']['useDefault']:
                 rem_dur = 10
-                json['reminders'].append({'method':'popup', 'minutes':str(rem_dur)})
+                json['reminders'].append({'method': 'popup', 'minutes': str(rem_dur)})
 
             else:
-                if event['reminders'].get('overrides', [])==[]:
+                if event['reminders'].get('overrides', []) == []:
                     break
                 for override in event['reminders']['overrides']:
-                    json['reminders'].append({'method': override['method'], 'minutes':str(override['minutes'])})
+                    json['reminders'].append({'method': override['method'], 'minutes': str(override['minutes'])})
 
             array.append(json)
         return array
@@ -146,7 +158,7 @@ class Calendar:
 
     def delete_event(self, api, events, index):
         event_id = events[index]['id']
-        if(index > len(events)):
+        if (index > len(events)):
             return "out of index"
         try:
             api.events().delete(calendarId='primary', eventId=event_id).execute()
@@ -155,7 +167,7 @@ class Calendar:
         return "Success"
 
     def delete_reminder(self, api, events, index, idx_reminder):
-        if(index > len(events)):
+        if (index > len(events)):
             return "out of index"
         try:
             event_reminder = events[index].get('reminders', [])
@@ -262,6 +274,7 @@ class Calendar:
     #         api.events().delete(calendarId='primary', eventId=eventId).execute()
     #     except:
     #         print("event id with id of " + eventId + " has been deleted")
+
 
 calendar = Calendar()
 api = calendar.get_calendar_api()
