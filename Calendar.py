@@ -79,14 +79,13 @@ class Calendar:
 
         starting_time = datetime.datetime.utcnow().isoformat() + 'Z'
         ending_time = (datetime.datetime.utcnow() + datetime.timedelta(days=2 * 365)).isoformat() + 'Z'
-
-        if starting_time > ending_time:
-            return "invalid time"
         events_result = api.events().list(calendarId='primary', timeMin=starting_time,
                                           timeMax=ending_time, singleEvents=True,
                                           orderBy='startTime', showDeleted=None).execute()
 
         events = events_result.get('items', [])
+        # return events
+
 
         array = []
         for event in events:
@@ -103,8 +102,6 @@ class Calendar:
 
         ending_time = datetime.datetime.utcnow().isoformat() + 'Z'
         starting_time = (datetime.datetime.utcnow() - datetime.timedelta(days=5 * 365)).isoformat() + 'Z'
-        if starting_time > ending_time:
-            return "invalid time"
         events_result = api.events().list(calendarId='primary', timeMin=starting_time,
                                           timeMax=ending_time, singleEvents=True,
                                           orderBy='startTime', showDeleted=None).execute()
@@ -120,26 +117,6 @@ class Calendar:
 
             array.append(json)
         return array
-
-    # def get_all_events(self, api, starting_time, ending_time):
-    #     if starting_time > ending_time:
-    #         return "invalid time"
-    #     events_result = api.events().list(calendarId='primary', timeMin=starting_time,
-    #                                       timeMax=ending_time, singleEvents=True,
-    #                                       orderBy='startTime', showDeleted=None).execute()
-    #
-    #     events = events_result.get('items', [])
-    #
-    #     array=[]
-    #     for event in events:
-    #         event_summary = event.get('summary', 'unnamed')
-    #         event_reminders = event.get('reminders', [])
-    #         event_id = event.get('id', 'unknown')
-    #         json = {'event_summary': event_summary, 'reminders': event_reminders, 'id': event_id}
-    #
-    #         array.append(json)
-    #     return array
-
     # def find_events_by_name(self, api, name):
     #     # the search is done based on the "queried" keyword
     #     events_result = api.events().list(calendarId='primary', singleEvents=True,
@@ -160,15 +137,22 @@ class Calendar:
 
         if(index > len(events)):
             return "out of index"
-        try:
-            event_id = events[index]['id']
-        except IndexError:
-            return "out of index"
-        if index < 0:
+        elif index < 0:
             return "Negative index"
+        else:
+            event_id = events[index]['id']
 
-        api.events().delete(calendarId='primary', eventId=event_id).execute()
-        return "Success"
+            api.events().delete(calendarId='primary', eventId=event_id).execute()
+            return "Success"
+
+
+    # def delete_ev(self, api, event_id):
+    #     try:
+    #         api.events().delete(calendarId='primary', eventId=event_id).execute()
+    #         return "Success"
+    #
+    #     except:
+    #         return "Failed"
 
 
 
@@ -177,4 +161,4 @@ class Calendar:
 calendar = Calendar()
 api = calendar.get_calendar_api()
 events=calendar.get_five_year_event_past(api)
-print(calendar.delete_event(api, events, 0))
+# print(calendar.delete_ev(api, "asd"))
