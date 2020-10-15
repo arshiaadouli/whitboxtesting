@@ -202,7 +202,6 @@ class Calendar:
         # elif year month and date given:
         # start_time = 12:am given date month and year
         # end_time = 12:am given date next month and year
-        pass
 
     def delete_event(self, api, events, index):
 
