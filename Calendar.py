@@ -159,17 +159,17 @@ class Calendar:
         timeList = time.split('-')
         year = timeList[0]
         events = []
-        if len(timeList == 1):
-            year = timeList[0]
+        if len(timeList) == 1:
+            year = int(timeList[0])
             events = self.navigate(api, year)
-        elif len(timeList == 2):
-            year = timeList[0]
-            month = timeList[1]
+        elif len(timeList) == 2:
+            year = int(timeList[0])
+            month = int(timeList[1])
             events = self.navigate(api, year, month)
-        elif len(timeList == 3):
-            year = timeList[0]
-            month = timeList[1]
-            day = timeList[2]
+        elif len(timeList) == 3:
+            year = int(timeList[0])
+            month = int(timeList[1])
+            day = int(timeList[2])
             events = self.navigate(api, year, month, day)
 
         i = 0
@@ -179,7 +179,7 @@ class Calendar:
 
         event_number = input("Select event number")
         try:
-            print(events[i - 1])
+            print(events[event_number - 1])
         except:
             print("Wrong option number entered")
         return None
