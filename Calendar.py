@@ -132,17 +132,9 @@ class Calendar:
         array = []
         for event in events:
             event_summary = event.get('summary', 'unnamed')
-            json = {'event_summary': event_summary, 'reminders': []}
-            if event['reminders']['useDefault']:
-                rem_dur = 10
-                json['reminders'].append({'method': 'popup', 'minutes': str(rem_dur)})
-
-            else:
-                if event['reminders'].get('overrides', []) == []:
-                    break
-                for override in event['reminders']['overrides']:
-                    json['reminders'].append({'method': override['method'], 'minutes': str(override['minutes'])})
-
+            event_reminders = event.get('reminders', [])
+            event_id = event.get('id', 'unknown')
+            json = {'event_summary': event_summary, 'reminders': event_reminders, 'id': event_id}
             array.append(json)
         return array
 
@@ -161,6 +153,7 @@ class Calendar:
     #     return array
 
     def navigate(self, api, selectedTimePeriod):
+        #2020-03-03T12:23:45.000000Z
         # toDo: find out format of time entered
         #if only year given:
             #append rest of the details
@@ -174,6 +167,7 @@ class Calendar:
         #elif year month and date given:
             # start_time = 12:am given date month and year
             # end_time = 12:am given date next month and year
+        pass
 
 
     def delete_event(self, api, events, index):
