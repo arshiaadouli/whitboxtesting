@@ -213,12 +213,14 @@ class Calendar:
             i += 1
             print(str(i) + ". " + str(event.get('summary')) + "\n")
 
-        event_number = int(input("Select event number"))
-        try:
-            print(events[event_number - 1])
-        except:
-            print("Wrong option number entered")
-            return 0
+        if len(events) > 0:
+            event_number = int(input("Select event number"))
+            try:
+                print(events[event_number - 1])
+            except:
+                print("Wrong option number entered")
+                return 0
+            return 1
         return 1
 
 
