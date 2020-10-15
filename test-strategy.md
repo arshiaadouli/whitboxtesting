@@ -79,3 +79,9 @@ under the 'found' category.
 
 
 5. As a user, I can delete events and reminders
+
+This functionality was categorised into 3 test cases -
+
+    1. Valid event
+    2. Invalid event: Negative Index
+    3. Event is out of range
