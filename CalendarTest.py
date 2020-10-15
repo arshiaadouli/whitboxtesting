@@ -565,6 +565,27 @@ class CalendarTest(unittest.TestCase):
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 0)
 
+    @patch('builtins.input', side_effect=['2020','93'])
+    def test_navigate_2nd_input_invalid(self, mock_api):
+        cal = Calendar()
+        result = cal.navigateUser(mock_api)
+        self.assertEqual(result, 0)
+
+    @patch('builtins.input', side_effect=['2020', '1'])
+    def test_navigate_2nd_input_valid(self, mock_api):
+        cal = Calendar()
+        result = cal.navigateUser(mock_api)
+        self.assertEqual(result, 1)
+
+    @patch('builtins.input', side_effect=['2029'])
+    def test_navigate_2nd_input_invalid(self, mock_api):
+        cal = Calendar()
+        result = cal.navigateUser(mock_api)
+        self.assertEqual(result, 1)
+
+
+
+
 
 
 
