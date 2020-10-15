@@ -150,27 +150,39 @@ class Calendar:
         else:
             endDate = datetime.datetime(year + 1, month + 1, day).isoformat() + 'Z'
         events = get_all_events(api, startDate, endDate)
-        for event in events:
-            i += 1
-            print(event)
-        print(startDate)
+        return events
+
+
 
     def navigateUser(self, api):
         time = str(input("Enter time period"))
         timeList = time.split('-')
         year = timeList[0]
+        events = []
         if len(timeList == 1):
             year = timeList[0]
-            navigate(api, year)
+            events = navigate(api, year)
         elif len(timeList == 2):
             year = timeList[0]
             month = timeList[1]
-            navigate(api, year, month)
+            events = navigate(api, year, month)
         elif len(timeList == 3):
             year = timeList[0]
             month = timeList[1]
             day = timeList[2]
-            navigate(api, year, month, day)
+            events = navigate(api, year, month, day)
+
+        i = 0
+        for event in events:
+            i += 1
+            print(str(i) + ". " + str(event.get('summary')) + "\n")
+
+        event_number = input("Select event number")
+        try:
+            print(events[i - 1])
+        except:
+            print("Wrong option number entered")
+        return None
 
 
         # selectedTimePeriod = 2020
