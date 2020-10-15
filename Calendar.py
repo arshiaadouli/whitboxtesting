@@ -160,6 +160,22 @@ class Calendar:
     #         array.append(json)
     #     return array
 
+    def navigate(self, api, selectedTimePeriod):
+        # toDo: find out format of time entered
+        #if only year given:
+            #append rest of the details
+            # start_time = 1st Jan of given year
+            # end_time = 1st Jan of next year
+
+        #elif year and month given:
+            # start_time = 1st of given month and year
+            # end_time = 1st Jan of next month and year
+
+        #elif year month and date given:
+            # start_time = 12:am given date month and year
+            # end_time = 12:am given date next month and year
+
+
     def delete_event(self, api, events, index):
 
         if (index >= len(events)):
