@@ -119,9 +119,7 @@ class Calendar:
 
     def get_all_events(self, api, starting_time, ending_time):
 
-        events_result = api.events().list(calendarId='primary', timeMin=starting_time,
-                                          timeMax=ending_time, singleEvents=True,
-                                          orderBy='startTime', showDeleted=None).execute()
+        events_result = api.events().list(calendarId='primary', timeMin=starting_time, timeMax=ending_time, singleEvents=True,orderBy='startTime', showDeleted=None).execute()
 
         events = events_result.get('items', [])
         return events
@@ -140,15 +138,45 @@ class Calendar:
     #         array.append(json)
     #     return array
 
-    def navigate(self, api, year, month=1, day=1):
+    def navigate(self, api, year, month, day, string):
+        if string=='year':
+            startDate = datetime.datetime(year, 1, 1).isoformat() + 'Z'
+            endDate = datetime.datetime(year + 1, 1, 1).isoformat() + 'Z'
+        elif string=="month":
+            if month == 12:
+                endDate = datetime.datetime(year + 1, 1, 1).isoformat() + 'Z'
+            else:
+                endDate = datetime.datetime(year, month+1, 1).isoformat() + 'Z'
+        elif string=="day":
+            if month == 12:
+
+                try:
+                    endDate = datetime.datetime(year, month, day+1).isoformat() + 'Z'
+                except:
+                    endDate = datetime.datetime(year, 1, 1).isoformat() + 'Z'
+            else:
+                try:
+                    endDate = datetime.datetime(year, month, day + 1).isoformat() + 'Z'
+                except:
+                     endDate = datetime.datetime(year, month+1, 1).isoformat() + 'Z'
+
+
+
         # startTime = "T00:00:00+00:00"
         # 'start': {'dateTime': '2020-09-28T07:30:00+10:00'}, '
         events = []
         startDate = datetime.datetime(year, month, day).isoformat() + 'Z'
+        """
         if month == 12:
             endDate = datetime.datetime(year + 1, 1, day).isoformat() + 'Z'
         else:
-            endDate = datetime.datetime(year + 1, month + 1, day).isoformat() + 'Z'
+            try:
+                endDate = datetime.datetime(year, month + 1, day+1).isoformat() + 'Z'
+            except:
+                endDate = datetime.datetime(year, month + 2, 1).isoformat() + 'Z'
+        """
+        print(startDate)
+        print(endDate)
         events = self.get_all_events(api, startDate, endDate)
         return events
 
@@ -157,32 +185,37 @@ class Calendar:
     def navigateUser(self, api):
         time = str(input("Enter time period"))
         timeList = time.split('-')
+        print(timeList)
         year = timeList[0]
         events = []
         if len(timeList) == 1:
             year = int(timeList[0])
-            events = self.navigate(api, year)
+            events = self.navigate(api, year, 1, 1,"year")
         elif len(timeList) == 2:
+            print("time list 2")
             year = int(timeList[0])
             month = int(timeList[1])
-            events = self.navigate(api, year, month)
+            print("month  = " + str(month))
+            events = self.navigate(api, year, month, 1, "month")
         elif len(timeList) == 3:
             year = int(timeList[0])
             month = int(timeList[1])
             day = int(timeList[2])
-            events = self.navigate(api, year, month, day)
+            events = self.navigate(api, year, month, day, "day")
+        print("events line 175 = " + str(len(events)))
 
         i = 0
         for event in events:
             i += 1
             print(str(i) + ". " + str(event.get('summary')) + "\n")
 
-        event_number = input("Select event number")
+        event_number = int(input("Select event number"))
         try:
             print(events[event_number - 1])
         except:
             print("Wrong option number entered")
-        return None
+            return 0
+        return 1
 
 
         # selectedTimePeriod = 2020
@@ -224,6 +257,9 @@ class Calendar:
 
 calendar = Calendar()
 api = calendar.get_calendar_api()
-events = calendar.get_two_year_event_future(api)
-# print(calendar.delete_ev(api, "asd"))
-print(calendar.navigate(api, 2020))
+startDate = datetime.datetime(2020, 5, 1).isoformat() + 'Z'
+#print(len(calendar.get_all_events(api,startDate,datetime.datetime(2020, 6, 1).isoformat() + 'Z')))
+# print(calendar.navigateUser(api))
+
+print(calendar.get_all_events(api, datetime.datetime(2020, 9, 16).isoformat()+'+11:00', datetime.datetime(2020, 9, 17).isoformat()+'+11:00'))
+print(datetime.datetime(2020, 2, 2).isoformat()+'+11:00')
