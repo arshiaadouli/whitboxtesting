@@ -553,6 +553,12 @@ class CalendarTest(unittest.TestCase):
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 0)
 
+    @patch('builtins.input', side_effect=['2020-04-78'])
+    def test_navigate_year_invalid_day(self, mock_api):
+        cal = Calendar()
+        result = cal.navigateUser(mock_api)
+        self.assertEqual(result, 0)
+
 
 
 
