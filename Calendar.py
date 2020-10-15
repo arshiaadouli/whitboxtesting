@@ -124,19 +124,19 @@ class Calendar:
         events = events_result.get('items', [])
         return events
 
-    # def find_events_by_name(self, api, name):
-    #     # the search is done based on the "queried" keyword
-    #     events_result = api.events().list(calendarId='primary', singleEvents=True,
-    #                                       orderBy='startTime', q=name).execute()
-    #     events = events_result.get('items', [])
-    #     array=[]
-    #     for event in events:
-    #         event_summary = event.get('summary', 'unnamed')
-    #         event_reminders = event.get('reminders', [])
-    #         event_id = event.get('id', 'unknown')
-    #         json = {'event_summary': event_summary, 'reminders':event_reminders, 'id':event_id}
-    #         array.append(json)
-    #     return array
+    def find_events_by_name(self, api, name):
+        # the search is done based on the "queried" keyword
+        events_result = api.events().list(calendarId='primary', singleEvents=True,
+                                          orderBy='startTime', q=name).execute()
+        events = events_result.get('items', [])
+        array=[]
+        for event in events:
+            event_summary = event.get('summary', 'unnamed')
+            event_reminders = event.get('reminders', [])
+            event_id = event.get('id', 'unknown')
+            json = {'event_summary': event_summary, 'reminders':event_reminders, 'id':event_id}
+            array.append(json)
+        return array
 
     def navigate(self, api, year, month, day, string):
         if string=='year':
@@ -261,5 +261,4 @@ startDate = datetime.datetime(2020, 5, 1).isoformat() + 'Z'
 #print(len(calendar.get_all_events(api,startDate,datetime.datetime(2020, 6, 1).isoformat() + 'Z')))
 # print(calendar.navigateUser(api))
 
-print(calendar.get_all_events(api, datetime.datetime(2020, 9, 16).isoformat()+'+11:00', datetime.datetime(2020, 9, 17).isoformat()+'+11:00'))
-print(datetime.datetime(2020, 2, 2).isoformat()+'+11:00')
+print(calendar.find_events_by_name(api, "arshia"))
