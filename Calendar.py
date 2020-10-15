@@ -149,7 +149,7 @@ class Calendar:
             endDate = datetime.datetime(year + 1, 1, day).isoformat() + 'Z'
         else:
             endDate = datetime.datetime(year + 1, month + 1, day).isoformat() + 'Z'
-        events = get_all_events(api, startDate, endDate)
+        events = self.get_all_events(api, startDate, endDate)
         return events
 
 
@@ -161,16 +161,16 @@ class Calendar:
         events = []
         if len(timeList == 1):
             year = timeList[0]
-            events = navigate(api, year)
+            events = self.navigate(api, year)
         elif len(timeList == 2):
             year = timeList[0]
             month = timeList[1]
-            events = navigate(api, year, month)
+            events = self.navigate(api, year, month)
         elif len(timeList == 3):
             year = timeList[0]
             month = timeList[1]
             day = timeList[2]
-            events = navigate(api, year, month, day)
+            events = self.navigate(api, year, month, day)
 
         i = 0
         for event in events:
