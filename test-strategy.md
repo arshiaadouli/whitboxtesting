@@ -11,6 +11,13 @@ Testing Units (by functionality/user stories) -
 1. As a user, I can see events and reminders for at least 5 years in past from the today’s
 date
 
+This functionality was categorised into 4 test cases - 
+
+    1. No events exist
+    Events exist
+        2. If events exist before start time (i.e before 5 years), they shouldn't come up
+        3. If events are after end time (present) they shouldn't come up
+        4. If the event between start time and end time they should come up
 
 
 2. As a user, I can see events and reminders for at least next two years (in future)
