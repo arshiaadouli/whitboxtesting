@@ -54,8 +54,8 @@ class CalendarTest(unittest.TestCase):
         ending_time = datetime.datetime.utcnow().isoformat() + 'Z'
         starting_time = (datetime.datetime.utcnow() - datetime.timedelta(days=5 * 365)).isoformat() + 'Z'
 
-        self.assertEqual(kwargs['timeMin'][0:20], starting_time[0:20])
-        self.assertEqual(kwargs['timeMax'][0:20], ending_time[0:20])
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
         # print(kwargs)
         self.assertEqual(event, expected_value)
         # print("event five year", event)
@@ -92,8 +92,8 @@ class CalendarTest(unittest.TestCase):
         ending_time = datetime.datetime.utcnow().isoformat() + 'Z'
         starting_time = (datetime.datetime.utcnow() - datetime.timedelta(days=5 * 365)).isoformat() + 'Z'
 
-        self.assertEqual(kwargs['timeMin'][0:20], starting_time[0:20])
-        self.assertEqual(kwargs['timeMax'][0:20], ending_time[0:20])
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
         self.assertEqual(event, expected_value)
 
 
@@ -130,10 +130,29 @@ class CalendarTest(unittest.TestCase):
         ending_time = datetime.datetime.utcnow().isoformat() + 'Z'
         starting_time = (datetime.datetime.utcnow() - datetime.timedelta(days=5 * 365)).isoformat() + 'Z'
 
-        self.assertEqual(kwargs['timeMin'][0:20], starting_time[0:20])
-        self.assertEqual(kwargs['timeMax'][0:20], ending_time[0:20])
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
         self.assertEqual(event, expected_value)
-        
+
+    @patch('Calendar.open')
+    def test_five_year_event_past_empty(self, mock_api):
+        cal = Calendar()
+        # specify ret val
+        mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = []
+
+        event = cal.get_five_year_event_past(mock_api)
+
+        expected_value = []
+        self.assertEqual(
+            mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+        )
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+        ending_time = datetime.datetime.utcnow().isoformat() + 'Z'
+        starting_time = (datetime.datetime.utcnow() - datetime.timedelta(days=5 * 365)).isoformat() + 'Z'
+
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
+        self.assertEqual(event, expected_value)
 
 
     @patch('Calendar.open')
@@ -171,8 +190,8 @@ class CalendarTest(unittest.TestCase):
         ending_time = (datetime.datetime.utcnow() + datetime.timedelta(days=2 * 365)).isoformat() + 'Z'
 
 
-        self.assertEqual(kwargs['timeMin'][0:20], starting_time[0:20])
-        self.assertEqual(kwargs['timeMax'][0:20], ending_time[0:20])
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
 
         self.assertEqual(event, expected_value)
 
@@ -207,8 +226,8 @@ class CalendarTest(unittest.TestCase):
         ending_time = (datetime.datetime.utcnow() + datetime.timedelta(days=2 * 365)).isoformat() + 'Z'
 
 
-        self.assertEqual(kwargs['timeMin'][0:20], starting_time[0:20])
-        self.assertEqual(kwargs['timeMax'][0:20], ending_time[0:20])
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
 
         self.assertEqual(event, expected_value)
 
@@ -248,10 +267,32 @@ class CalendarTest(unittest.TestCase):
         ending_time = (datetime.datetime.utcnow() + datetime.timedelta(days=2 * 365)).isoformat() + 'Z'
 
 
-        self.assertEqual(kwargs['timeMin'][0:20], starting_time[0:20])
-        self.assertEqual(kwargs['timeMax'][0:20], ending_time[0:20])
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
 
         self.assertEqual(event, expected_value)
+
+    @patch('Calendar.open')
+    def test_two_year_event_future_empty(self, mock_api):
+        cal = Calendar()
+        mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = []
+
+        event = cal.get_two_year_event_future(mock_api)
+
+        expected_value = []
+        self.assertEqual(
+            mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+        )
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+        starting_time = datetime.datetime.utcnow().isoformat() + 'Z'
+        ending_time = (datetime.datetime.utcnow() + datetime.timedelta(days=2 * 365)).isoformat() + 'Z'
+
+
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
+
+        self.assertEqual(event, expected_value)
+
 
 
     @patch('Calendar.open')

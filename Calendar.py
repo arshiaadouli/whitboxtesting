@@ -140,19 +140,15 @@ class Calendar:
         elif index < 0:
             return "Negative index"
         else:
-            event_id = events[index]['id']
+            try:
+                event_id = events[index]['id']
+                api.events().delete(calendarId='primary', eventId=event_id).execute()
+                return "Success"
 
-            api.events().delete(calendarId='primary', eventId=event_id).execute()
-            return "Success"
+            except:
+                return "an error has happened"
 
 
-    # def delete_ev(self, api, event_id):
-    #     try:
-    #         api.events().delete(calendarId='primary', eventId=event_id).execute()
-    #         return "Success"
-    #
-    #     except:
-    #         return "Failed"
 
 
 
