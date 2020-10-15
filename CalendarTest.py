@@ -505,6 +505,26 @@ class CalendarTest(unittest.TestCase):
         self.assertEqual(kwargs['q'], q)
 
 
+    @patch('builtins.input', side_effect=['2020', '1'])
+    def test_navigate_year(self, mock_api):
+        cal = Calendar()
+        result = cal.navigateUser(mock_api)
+        self.assertEqual(result,1)
+
+    @patch('builtins.input', side_effect=['2020-05', '1'])
+    def test_navigate_month(self, mock_api):
+        cal = Calendar()
+        result = cal.navigateUser(mock_api)
+        self.assertEqual(result, 1)
+
+    @patch('builtins.input', side_effect=['2020-09-16', '1'])
+    def test_navigate_day(self, mock_api):
+        cal = Calendar()
+        result = cal.navigateUser(mock_api)
+        self.assertEqual(result, 1)
+
+
+
 def main():
 
     # Create the test suite from the cases above.
