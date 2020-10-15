@@ -149,8 +149,11 @@ class Calendar:
         elif string=="month":
             if month == 12:
                 endDate = datetime.datetime(year + 1, 1, 1).isoformat() + 'Z'
+            elif month >12:
+                return []
             else:
-                endDate = datetime.datetime(year, month+1, 1).isoformat() + 'Z'
+                endDate = datetime.datetime(year, month + 1, 1).isoformat() + 'Z'
+
         elif string=="day":
             if month == 12:
 
@@ -169,7 +172,10 @@ class Calendar:
         # startTime = "T00:00:00+00:00"
         # 'start': {'dateTime': '2020-09-28T07:30:00+10:00'}, '
         events = []
-        startDate = datetime.datetime(year, month, day).isoformat() + 'Z'
+        try:
+            startDate = datetime.datetime(year, month, day).isoformat() + 'Z'
+        except:
+            return ["error"]
         """
         if month == 12:
             endDate = datetime.datetime(year + 1, 1, day).isoformat() + 'Z'
@@ -193,14 +199,20 @@ class Calendar:
         year = timeList[0]
         events = []
         if len(timeList) == 1:
-            year = int(timeList[0])
-            events = self.navigate(api, year, 1, 1,"year")
+            if year=='':
+                events = ['error']
+            else:
+                year = int(timeList[0])
+                events = self.navigate(api, year, 1, 1,"year")
         elif len(timeList) == 2:
             print("time list 2")
             year = int(timeList[0])
             month = int(timeList[1])
             print("month  = " + str(month))
+
             events = self.navigate(api, year, month, 1, "month")
+            if month > 12:
+                events = ['error']
         elif len(timeList) == 3:
             year = int(timeList[0])
             month = int(timeList[1])
@@ -210,17 +222,24 @@ class Calendar:
 
         i = 0
         for event in events:
+            if event == 'error':
+                return 0
             i += 1
             print(str(i) + ". " + str(event.get('summary')) + "\n")
-
+        print("line 235:", len(events))
         if len(events) > 0:
             event_number = int(input("Select event number"))
+
+
             try:
                 print(events[event_number - 1])
             except:
                 print("Wrong option number entered")
+                print("line 238: ", len(events))
                 return 0
-            return 1
+
+            # return 1
+
         return 1
 
 
@@ -246,8 +265,10 @@ class Calendar:
 
 calendar = Calendar()
 api = calendar.get_calendar_api()
-startDate = datetime.datetime(2020, 5, 1).isoformat() + 'Z'
+startDate = datetime.datetime(20, 5, 1).isoformat() + 'Z'
 #print(len(calendar.get_all_events(api,startDate,datetime.datetime(2020, 6, 1).isoformat() + 'Z')))
 # print(calendar.navigateUser(api))
 
 # print(calendar.find_events_by_name(api, "zxc"))
+
+# print(startDate)
