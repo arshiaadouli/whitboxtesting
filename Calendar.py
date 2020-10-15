@@ -89,12 +89,12 @@ class Calendar:
 
         array = []
         for event in events:
-            event_summary = event.get('summary', 'unnamed')
-            event_reminders = event.get('reminders', [])
-            event_id = event.get('id', 'unknown')
-            json = {'event_summary': event_summary, 'reminders': event_reminders, 'id': event_id}
-
-            array.append(json)
+            if event['start']['dateTime'] >= starting_time and event['start']['dateTime'] <= ending_time:
+                event_summary = event.get('summary', 'unnamed')
+                event_reminders = event.get('reminders', [])
+                event_id = event.get('id', 'unknown')
+                json = {'event_summary': event_summary, 'reminders': event_reminders, 'id': event_id}
+                array.append(json)
         return array
 
 
@@ -110,12 +110,12 @@ class Calendar:
 
         array = []
         for event in events:
-            event_summary = event.get('summary', 'unnamed')
-            event_reminders = event.get('reminders', [])
-            event_id = event.get('id', 'unknown')
-            json = {'event_summary': event_summary, 'reminders': event_reminders, 'id': event_id}
-
-            array.append(json)
+            if event['start']['dateTime'] >= starting_time and event['start']['dateTime'] <= ending_time and event['end']['dateTime'] >= starting_time and event['end']['dateTime'] <= ending_time:
+                event_summary = event.get('summary', 'unnamed')
+                event_reminders = event.get('reminders', [])
+                event_id = event.get('id', 'unknown')
+                json = {'event_summary': event_summary, 'reminders': event_reminders, 'id': event_id}
+                array.append(json)
         return array
     # def find_events_by_name(self, api, name):
     #     # the search is done based on the "queried" keyword
