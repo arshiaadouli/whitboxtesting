@@ -105,7 +105,7 @@ class Calendar:
                                           orderBy='startTime', showDeleted=None).execute()
 
         events = events_result.get('items', [])
-
+        #return events
         array = []
         for event in events:
             if event['start']['dateTime'] >= starting_time and event['start']['dateTime'] <= ending_time and \
@@ -124,27 +124,7 @@ class Calendar:
                                           orderBy='startTime', showDeleted=None).execute()
 
         events = events_result.get('items', [])
-
-        # print(events)
-        first_stmt = ''
-        second_stmt = ''
-
-        array = []
-        for event in events:
-            event_summary = event.get('summary', 'unnamed')
-            json = {'event_summary': event_summary, 'reminders': []}
-            if event['reminders']['useDefault']:
-                rem_dur = 10
-                json['reminders'].append({'method': 'popup', 'minutes': str(rem_dur)})
-
-            else:
-                if event['reminders'].get('overrides', []) == []:
-                    break
-                for override in event['reminders']['overrides']:
-                    json['reminders'].append({'method': override['method'], 'minutes': str(override['minutes'])})
-
-            array.append(json)
-        return array
+        return events
 
     # def find_events_by_name(self, api, name):
     #     # the search is done based on the "queried" keyword
@@ -160,21 +140,68 @@ class Calendar:
     #         array.append(json)
     #     return array
 
-    def navigate(self, api, selectedTimePeriod):
+    def navigate(self, api, year, month=1, day=1):
+        # startTime = "T00:00:00+00:00"
+        # 'start': {'dateTime': '2020-09-28T07:30:00+10:00'}, '
+        events = []
+        startDate = datetime.datetime(year, month, day).isoformat() + 'Z'
+        if month == 12:
+            endDate = datetime.datetime(year + 1, 1, day).isoformat() + 'Z'
+        else:
+            endDate = datetime.datetime(year + 1, month + 1, day).isoformat() + 'Z'
+        events = self.get_all_events(api, startDate, endDate)
+        return events
+
+
+
+    def navigateUser(self, api):
+        time = str(input("Enter time period"))
+        timeList = time.split('-')
+        year = timeList[0]
+        events = []
+        if len(timeList == 1):
+            year = timeList[0]
+            events = self.navigate(api, year)
+        elif len(timeList == 2):
+            year = timeList[0]
+            month = timeList[1]
+            events = self.navigate(api, year, month)
+        elif len(timeList == 3):
+            year = timeList[0]
+            month = timeList[1]
+            day = timeList[2]
+            events = self.navigate(api, year, month, day)
+
+        i = 0
+        for event in events:
+            i += 1
+            print(str(i) + ". " + str(event.get('summary')) + "\n")
+
+        event_number = input("Select event number")
+        try:
+            print(events[i - 1])
+        except:
+            print("Wrong option number entered")
+        return None
+
+
+        # selectedTimePeriod = 2020
+        # selectedTimePeriod = 2020
+        # selectedTimePeriod = 2020
+        # 2020-03-03T12:23:45.000000Z
         # toDo: find out format of time entered
-        #if only year given:
-            #append rest of the details
-            # start_time = 1st Jan of given year
-            # end_time = 1st Jan of next year
+        # if only year given:
+        # append rest of the details
+        # start_time = 1st Jan of given year
+        # end_time = 1st Jan of next year
 
-        #elif year and month given:
-            # start_time = 1st of given month and year
-            # end_time = 1st Jan of next month and year
+        # elif year and month given:
+        # start_time = 1st of given month and year
+        # end_time = 1st Jan of next month and year
 
-        #elif year month and date given:
-            # start_time = 12:am given date month and year
-            # end_time = 12:am given date next month and year
-
+        # elif year month and date given:
+        # start_time = 12:am given date month and year
+        # end_time = 12:am given date next month and year
 
     def delete_event(self, api, events, index):
 
@@ -193,5 +220,6 @@ class Calendar:
 
 calendar = Calendar()
 api = calendar.get_calendar_api()
-events = calendar.get_five_year_event_past(api)
+events = calendar.get_two_year_event_future(api)
 # print(calendar.delete_ev(api, "asd"))
+print(calendar.navigate(api, 2020))
