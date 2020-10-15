@@ -22,7 +22,7 @@ and reminders(and any other information associated to the event) will be shown. 
 means on selecting the specific event or reminder I can see the detailed information.
 
 This functionality was divided by 2 inputs needed by the program
-And was categorised into 2 a total of 13 test cases. 
+And was categorised into a total of 13 test cases. 
 
 To test first input of getting time period from user - 
 
@@ -53,6 +53,16 @@ To test second input of getting required event from user -
 This was done to handle all types of input combinations. 
 
 4. As a user, I can search events and reminders using different key words.
+
+This functionality was categorised into 2 test cases - 
+
+    1. Event found
+    2. Event not found
+    
+This was done because testing for invalid/valid arguments seperately wasn't
+required since if an invalid argument was provided, the event would fall under
+the 'not found' category. And if a valid argument was provided, it would fall 
+under the 'found' category.
 
 
 5. As a user, I can delete events and reminders
