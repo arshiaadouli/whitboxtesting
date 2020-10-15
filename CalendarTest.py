@@ -523,6 +523,31 @@ class CalendarTest(unittest.TestCase):
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 1)
 
+    @patch('builtins.input', side_effect=['2020-12-16'])
+    def test_navigate_day_no_event(self, mock_api):
+        cal = Calendar()
+        result = cal.navigateUser(mock_api)
+        self.assertEqual(result, 1)
+
+    @patch('builtins.input', side_effect=['2020-12'])
+    def test_navigate_month_no_event(self, mock_api):
+        cal = Calendar()
+        result = cal.navigateUser(mock_api)
+        self.assertEqual(result, 1)
+
+    @patch('builtins.input', side_effect=['2024'])
+    def test_navigate_year_no_event(self, mock_api):
+        cal = Calendar()
+        result = cal.navigateUser(mock_api)
+        self.assertEqual(result, 1)
+
+
+
+
+
+
+
+
 
 
 def main():
