@@ -7,10 +7,6 @@ import calendar
 
 from Calendar import Calendar
 
-
-
-
-
 class CalendarTest(unittest.TestCase):
 
     # This test tests number of upcoming events.
@@ -300,33 +296,34 @@ class CalendarTest(unittest.TestCase):
             mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = [
                 {
                     'id': '59kstuco11fiikf4v831pmfcte',
-                    'summary': 'first event', 'start': {'dateTime': '2022-10-15T07:30:00+11:00'},
-                    'end': {'dateTime': '2023-10-15T08:30:00+11:00'},
+                    'summary': 'first event', 'start': {'dateTime': '2020-11-15T07:30:00+11:00'},
+                    'end': {'dateTime': '2022-11-15T08:30:00+11:00'},
                     'reminders': {'useDefault': True}
                 },
 
                 {
                     'id': '60ktugro11fiijg4v831pjfabc',
-                    'summary': 'second event', 'start': {'dateTime': '2020-10-15T07:30:00+11:00'},
-                    'end': {'dateTime': '2022-10-15T08:30:00+11:00'},
+                    'summary': 'second event', 'start': {'dateTime': '2020-11-15T07:30:00+11:00'},
+                    'end': {'dateTime': '2022-11-15T08:30:00+11:00'},
                     'reminders': {'useDefault': True}
                 },
                 {
                     'id': '60ktugro11fiijg4v831pjfabc',
-                    'summary': 'third event', 'start': {'dateTime': '2020-10-15T07:30:00+11:00'},
-                    'end': {'dateTime': '2022-10-15T08:30:00+11:00'},
+                    'summary': 'third event', 'start': {'dateTime': '2020-11-15T07:30:00+11:00'},
+                    'end': {'dateTime': '2022-11-15T08:30:00+11:00'},
                     'reminders': {'useDefault': True}
                 },
                 {
                     'id': '60ktugro11fiijg4v831pjfabc',
-                    'summary': 'forth event', 'start': {'dateTime': '2020-10-15T07:30:00+11:00'},
-                    'end': {'dateTime': '2022-10-15T08:30:00+11:00'},
+                    'summary': 'forth event', 'start': {'dateTime': '2020-11-15T07:30:00+11:00'},
+                    'end': {'dateTime': '2022-11-15T08:30:00+11:00'},
                     'reminders': {'useDefault': True}
                 }
             ]
 
             event = cal.get_two_year_event_future(mock_api)
-            self.assertEqual(cal.delete_event(mock_api, event, 0), "Success")
+            self.assertEqual(cal.delete_event(mock_api, event, 3), "Success")
+
 
 
 
@@ -442,6 +439,70 @@ class CalendarTest(unittest.TestCase):
         calendar = Calendar()
         print('deleteEv', calendar.delete_ev(mock_api, '123'))
 
+
+    @patch('Calendar.open')
+    def test_search_keyword_found(self, mock_api):
+        num_events = 2
+        time = "2020-08-03T00:00:00.000000Z"
+        q = "Manika"
+        # mock_api = Mock()
+        calendar = Calendar()
+        mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = [
+            {
+             'id': '59kstuco11fiikf4v831pmfcte',
+             'summary': 'first event', 'start': {'dateTime': '2016-10-15T07:30:00+11:00'},
+             'end': {'dateTime': '2018-10-15T08:30:00+11:00'},
+             'reminders': {'useDefault': True}
+             },
+            {
+                'id': '59kstuco11fiikf4v831pmfcte',
+                'summary': 'Arshia Manika', 'start': {'dateTime': '2016-10-15T07:30:00+11:00'},
+                'end': {'dateTime': '2018-10-15T08:30:00+11:00'},
+                'reminders': {'useDefault': True}
+            },
+        ]
+        events = calendar.find_events_by_name(mock_api, "Manika")
+        self.assertEqual(events, "found")
+
+        self.assertEqual(
+            mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+        )
+
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+        self.assertEqual(kwargs['q'], q)
+
+
+
+    @patch('Calendar.open')
+    def test_search_keyword_notFound(self, mock_api):
+        num_events = 2
+        time = "2020-08-03T00:00:00.000000Z"
+        q = "python"
+        # mock_api = Mock()
+        calendar = Calendar()
+        mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = [
+            {
+             'id': '59kstuco11fiikf4v831pmfcte',
+             'summary': 'first event', 'start': {'dateTime': '2016-10-15T07:30:00+11:00'},
+             'end': {'dateTime': '2018-10-15T08:30:00+11:00'},
+             'reminders': {'useDefault': True}
+             },
+            {
+                'id': '59kstuco11fiikf4v831pmfcte',
+                'summary': 'Arshia Manika', 'start': {'dateTime': '2016-10-15T07:30:00+11:00'},
+                'end': {'dateTime': '2018-10-15T08:30:00+11:00'},
+                'reminders': {'useDefault': True}
+            },
+        ]
+        events = calendar.find_events_by_name(mock_api, "python")
+        self.assertEqual(events, "not found")
+
+        self.assertEqual(
+            mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+        )
+
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+        self.assertEqual(kwargs['q'], q)
 
 
 def main():

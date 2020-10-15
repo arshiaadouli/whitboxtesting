@@ -136,7 +136,11 @@ class Calendar:
             event_id = event.get('id', 'unknown')
             json = {'event_summary': event_summary, 'reminders':event_reminders, 'id':event_id}
             array.append(json)
-        return array
+        for elem in array:
+            if name in elem.get("event_summary"):
+                return "found"
+        return "not found"
+
 
     def navigate(self, api, year, month, day, string):
         if string=='year':
@@ -218,23 +222,6 @@ class Calendar:
         return 1
 
 
-        # selectedTimePeriod = 2020
-        # selectedTimePeriod = 2020
-        # selectedTimePeriod = 2020
-        # 2020-03-03T12:23:45.000000Z
-        # toDo: find out format of time entered
-        # if only year given:
-        # append rest of the details
-        # start_time = 1st Jan of given year
-        # end_time = 1st Jan of next year
-
-        # elif year and month given:
-        # start_time = 1st of given month and year
-        # end_time = 1st Jan of next month and year
-
-        # elif year month and date given:
-        # start_time = 12:am given date month and year
-        # end_time = 12:am given date next month and year
 
     def delete_event(self, api, events, index):
 
@@ -261,4 +248,4 @@ startDate = datetime.datetime(2020, 5, 1).isoformat() + 'Z'
 #print(len(calendar.get_all_events(api,startDate,datetime.datetime(2020, 6, 1).isoformat() + 'Z')))
 # print(calendar.navigateUser(api))
 
-print(calendar.find_events_by_name(api, "arshia"))
+# print(calendar.find_events_by_name(api, "zxc"))

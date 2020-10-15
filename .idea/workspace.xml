@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f53ede9b-ffa7-42ca-b1fd-e795e5a83b2a" name="Default Changelist" comment="" />
+    <list default="true" id="f53ede9b-ffa7-42ca-b1fd-e795e5a83b2a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.coverage" beforeDir="false" afterPath="$PROJECT_DIR$/.coverage" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Calendar.py" beforeDir="false" afterPath="$PROJECT_DIR$/Calendar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CalendarTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/CalendarTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/htmlcov/CalendarTest_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/CalendarTest_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/htmlcov/Calendar_py.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/Calendar_py.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/htmlcov/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/htmlcov/status.json" beforeDir="false" afterPath="$PROJECT_DIR$/htmlcov/status.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/token.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/token.pickle" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,7 +37,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Python.Calendar">
+  <component name="RunManager" selected="Python.CalendarTest">
     <configuration name="Calendar" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -162,8 +172,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Calendar" />
         <item itemvalue="Python.CalendarTest" />
+        <item itemvalue="Python.Calendar" />
         <item itemvalue="Python.TwitterTest" />
       </list>
     </recent_temporary>
@@ -218,22 +228,22 @@
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="759" y="151" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.689@0.0.1280.689" timestamp="1602488626869" />
-    <state width="1259" height="2" key="GridCell.Tab.0.bottom" timestamp="1602764357145">
+    <state width="1259" height="2" key="GridCell.Tab.0.bottom" timestamp="1602766918262">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1259" height="2" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1602764357145" />
-    <state width="1259" height="2" key="GridCell.Tab.0.center" timestamp="1602764357145">
+    <state width="1259" height="2" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1602766918262" />
+    <state width="1259" height="2" key="GridCell.Tab.0.center" timestamp="1602766918261">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1259" height="2" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1602764357145" />
-    <state width="1259" height="2" key="GridCell.Tab.0.left" timestamp="1602764357145">
+    <state width="1259" height="2" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1602766918261" />
+    <state width="1259" height="2" key="GridCell.Tab.0.left" timestamp="1602766918261">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1259" height="2" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1602764357145" />
-    <state width="1259" height="2" key="GridCell.Tab.0.right" timestamp="1602764357145">
+    <state width="1259" height="2" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1602766918261" />
+    <state width="1259" height="2" key="GridCell.Tab.0.right" timestamp="1602766918262">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1259" height="2" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1602764357145" />
+    <state width="1259" height="2" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1602766918262" />
     <state width="1259" height="17" key="GridCell.Tab.1.bottom" timestamp="1602482885329">
       <screen x="0" y="0" width="1280" height="689" />
     </state>
