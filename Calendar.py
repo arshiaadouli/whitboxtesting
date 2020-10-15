@@ -135,7 +135,7 @@ class Calendar:
 
     def delete_event(self, api, events, index):
 
-        if(index > len(events)):
+        if(index >= len(events)):
             return "out of index"
         elif index < 0:
             return "Negative index"
@@ -144,9 +144,8 @@ class Calendar:
                 event_id = events[index]['id']
                 api.events().delete(calendarId='primary', eventId=event_id).execute()
                 return "Success"
-
-            except:
-                return "an error has happened"
+            except:     # in case of some network issues
+                return "Error"
 
 
 
