@@ -158,8 +158,8 @@ class CalendarTest(unittest.TestCase):
         mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = [
             {
                 'id': '59kstuco11fiikf4v831pmfcte',
-                'summary': 'first event', 'start': {'dateTime': '2020-10-15T07:30:00+11:00'},
-                'end': {'dateTime': '2021-10-15T08:30:00+11:00'},
+                'summary': 'first event', 'start': {'dateTime': '2020-11-15T07:30:00+11:00'},
+                'end': {'dateTime': '2021-11-15T08:30:00+11:00'},
                 'reminders': {'useDefault': True}
             },
 
@@ -235,15 +235,15 @@ class CalendarTest(unittest.TestCase):
         mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = [
             {
                 'id': '59kstuco11fiikf4v831pmfcte',
-                'summary': 'first event', 'start': {'dateTime': '2022-10-15T07:30:00+11:00'},
-                'end': {'dateTime': '2023-10-15T08:30:00+11:00'},
+                'summary': 'first event', 'start': {'dateTime': '2020-11-15T07:30:00+11:00'},
+                'end': {'dateTime': '2020-11-15T08:30:00+11:00'},
                 'reminders': {'useDefault': True}
             },
 
             {
                 'id': '60ktugro11fiijg4v831pjfabc',
-                'summary': 'second event', 'start': {'dateTime': '2020-10-15T07:30:00+11:00'},
-                'end': {'dateTime': '2022-10-15T08:30:00+11:00'},
+                'summary': 'second event', 'start': {'dateTime': '2025-10-15T07:30:00+11:00'},
+                'end': {'dateTime': '2025-10-15T08:30:00+11:00'},
                 'reminders': {'useDefault': True}
             }
         ]
@@ -252,7 +252,7 @@ class CalendarTest(unittest.TestCase):
 
         expected_value = [
 
-            {'event_summary': 'second event', 'reminders': {'useDefault': True}, 'id': '60ktugro11fiijg4v831pjfabc'}
+            {'event_summary': 'first event', 'reminders': {'useDefault': True}, 'id': '59kstuco11fiikf4v831pmfcte'}
 
         ]
         self.assertEqual(
@@ -326,7 +326,7 @@ class CalendarTest(unittest.TestCase):
             ]
 
             event = cal.get_two_year_event_future(mock_api)
-            self.assertEqual(cal.delete_event(mock_api, event, 2), "Success")
+            self.assertEqual(cal.delete_event(mock_api, event, 0), "Success")
 
 
 
