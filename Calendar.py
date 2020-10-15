@@ -86,7 +86,6 @@ class Calendar:
         events = events_result.get('items', [])
         # return events
 
-
         array = []
         for event in events:
             if event['start']['dateTime'] >= starting_time and event['start']['dateTime'] <= ending_time:
@@ -96,7 +95,6 @@ class Calendar:
                 json = {'event_summary': event_summary, 'reminders': event_reminders, 'id': event_id}
                 array.append(json)
         return array
-
 
     def get_five_year_event_past(self, api):
 
@@ -110,13 +108,44 @@ class Calendar:
 
         array = []
         for event in events:
-            if event['start']['dateTime'] >= starting_time and event['start']['dateTime'] <= ending_time and event['end']['dateTime'] >= starting_time and event['end']['dateTime'] <= ending_time:
+            if event['start']['dateTime'] >= starting_time and event['start']['dateTime'] <= ending_time and \
+                    event['end']['dateTime'] >= starting_time and event['end']['dateTime'] <= ending_time:
                 event_summary = event.get('summary', 'unnamed')
                 event_reminders = event.get('reminders', [])
                 event_id = event.get('id', 'unknown')
                 json = {'event_summary': event_summary, 'reminders': event_reminders, 'id': event_id}
                 array.append(json)
         return array
+
+    def get_all_events(self, api, starting_time, ending_time):
+
+        events_result = api.events().list(calendarId='primary', timeMin=starting_time,
+                                          timeMax=ending_time, singleEvents=True,
+                                          orderBy='startTime', showDeleted=None).execute()
+
+        events = events_result.get('items', [])
+
+        # print(events)
+        first_stmt = ''
+        second_stmt = ''
+
+        array = []
+        for event in events:
+            event_summary = event.get('summary', 'unnamed')
+            json = {'event_summary': event_summary, 'reminders': []}
+            if event['reminders']['useDefault']:
+                rem_dur = 10
+                json['reminders'].append({'method': 'popup', 'minutes': str(rem_dur)})
+
+            else:
+                if event['reminders'].get('overrides', []) == []:
+                    break
+                for override in event['reminders']['overrides']:
+                    json['reminders'].append({'method': override['method'], 'minutes': str(override['minutes'])})
+
+            array.append(json)
+        return array
+
     # def find_events_by_name(self, api, name):
     #     # the search is done based on the "queried" keyword
     #     events_result = api.events().list(calendarId='primary', singleEvents=True,
@@ -131,11 +160,9 @@ class Calendar:
     #         array.append(json)
     #     return array
 
-
-
     def delete_event(self, api, events, index):
 
-        if(index >= len(events)):
+        if (index >= len(events)):
             return "out of index"
         elif index < 0:
             return "Negative index"
@@ -144,16 +171,11 @@ class Calendar:
                 event_id = events[index]['id']
                 api.events().delete(calendarId='primary', eventId=event_id).execute()
                 return "Success"
-            except:     # in case of some network issues
+            except:  # in case of some network issues
                 return "Error"
-
-
-
-
-
 
 
 calendar = Calendar()
 api = calendar.get_calendar_api()
-events=calendar.get_five_year_event_past(api)
+events = calendar.get_five_year_event_past(api)
 # print(calendar.delete_ev(api, "asd"))
