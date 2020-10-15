@@ -409,6 +409,39 @@ class CalendarTest(unittest.TestCase):
 
 
 
+    @patch('Calendar.open')
+    def test_delete(self, mock_api):
+        # mock_api.return_value.get.return_value = [
+        #     {
+        #         'id': '59kstuco11fiikf4v831pmfcte',
+        #         'summary': 'first event', 'start': {'dateTime': '2022-10-15T07:30:00+11:00'},
+        #         'end': {'dateTime': '2023-10-15T08:30:00+11:00'},
+        #         'reminders': {'useDefault': True}
+        #     },
+        #
+        #     {
+        #         'id': '60ktugro11fiijg4v831pjfabc',
+        #         'summary': 'second event', 'start': {'dateTime': '2020-10-15T07:30:00+11:00'},
+        #         'end': {'dateTime': '2022-10-15T08:30:00+11:00'},
+        #         'reminders': {'useDefault': True}
+        #     },
+        #     {
+        #         'id': '60ktugro11fiijg4v831pjfabc',
+        #         'summary': 'third event', 'start': {'dateTime': '2020-10-15T07:30:00+11:00'},
+        #         'end': {'dateTime': '2022-10-15T08:30:00+11:00'},
+        #         'reminders': {'useDefault': True}
+        #     },
+        #     {
+        #         'id': '60ktugro11fiijg4v831pjfabc',
+        #         'summary': 'forth event', 'start': {'dateTime': '2020-10-15T07:30:00+11:00'},
+        #         'end': {'dateTime': '2022-10-15T08:30:00+11:00'},
+        #         'reminders': {'useDefault': True}
+        #     }
+        # ]
+
+        calendar = Calendar()
+        print('deleteEv', calendar.delete_ev(mock_api, '123'))
+
 
 
 def main():

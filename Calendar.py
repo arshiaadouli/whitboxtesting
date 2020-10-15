@@ -217,6 +217,10 @@ class Calendar:
             except:  # in case of some network issues
                 return "Error"
 
+    def delete_ev(self, api, id):
+        return api.events().delete(calendarId='primary', eventId=id).execute()
+
+
 
 calendar = Calendar()
 api = calendar.get_calendar_api()
