@@ -21,7 +21,13 @@ that I can view the details of events. For example, if the year 2019 is selected
 and reminders(and any other information associated to the event) will be shown. This
 means on selecting the specific event or reminder I can see the detailed information.
 
-This was categorised into 10 test cases.
+This functionality was divided by 2 inputs needed by the program
+And was categorised into 2 a total of 13 test cases. 
+
+To test first input of getting time period from user - 
+
+    This was categorised into 10 test cases.
+
     For valid inputs in 3 formats where events exit for that time period-
         1. YYYY
         2. YYYY-MM
@@ -36,7 +42,15 @@ This was categorised into 10 test cases.
         9. YYYY-MM-DD
     10. Empty input string
 
+To test second input of getting required event from user -
 
+    This was categorised into 3 test cases.
+    
+    1. When there are no events to show
+    2. Invalid Input
+    3. Valid Input
+
+This was done to handle all types of input combinations. 
 
 4. As a user, I can search events and reminders using different key words.
 
