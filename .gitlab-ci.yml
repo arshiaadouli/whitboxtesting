@@ -5,6 +5,6 @@ test:
   - pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib
   - python CalendarTest.py
   - pip install coverage
-  - coverage run CalendarTest.py
+  - coverage run --branch CalendarTest.py
   - coverage report
   - coverage html
