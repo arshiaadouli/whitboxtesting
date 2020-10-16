@@ -11,20 +11,28 @@ Testing Units (by functionality/user stories) -
 1. As a user, I can see events and reminders for at least 5 years in past from the today’s
 date
 
-This functionality was categorised into 4 test cases - 
+Since the requirements specifically state that the user can see events from
+5 years in the past to present, we have to check if the program behaves
+as expected on the boundaries. Hence, the boundary testing approach was opted.
+
+This functionality was divided into 4 test cases - 
 
     1. No events exist
-    Events exist
+    Events exist - 
         2. If events exist before start time (i.e before 5 years), they shouldn't come up
         3. If events are after end time (i.e present) they shouldn't come up
         4. If the event between start time and end time they should come up
 
 2. As a user, I can see events and reminders for at least next two years (in future)
 
-This functionality was categorised into 4 test cases - 
+Since the requirements specifically state that the user can see events from
+present to 2 years in the future, we have to check if the program behaves
+as expected on the boundaries. Hence, the boundary testing approach was opted.
+
+This functionality was divided into 4 test cases - 
 
     1. No events exist
-    Events exist
+    Events exist - 
         2. If events exist before start time (i.e now), they shouldn't come up
         3. If events are after end time (i.e after 2 years) they shouldn't come up
         4. If the event between start time and end time they should come up
@@ -34,6 +42,7 @@ that I can view the details of events. For example, if the year 2019 is selected
 and reminders(and any other information associated to the event) will be shown. This
 means on selecting the specific event or reminder I can see the detailed information.
 
+Category Partitioning
 This functionality was divided by 2 inputs needed by the program
 And was categorised into a total of 13 test cases. 
 
