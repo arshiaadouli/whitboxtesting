@@ -259,8 +259,8 @@ class Calendar:
                 return "Error"
 
     def delete_ev(self, api, id):
-        return api.events().delete(calendarId='primary', eventId=id).execute()
-
+        if api.events().delete(calendarId='primary', eventId=id).execute()=='':
+            return True
 
 
 calendar = Calendar()

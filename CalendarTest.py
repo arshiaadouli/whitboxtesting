@@ -631,8 +631,6 @@ class CalendarTest(unittest.TestCase):
 
 
 
-
-
 def main():
 
     # Create the test suite from the cases above.
