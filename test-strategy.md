@@ -1,9 +1,9 @@
 Test Strategy for testing Calendar.py
 
-The test cases were selected by functionanlities/user stories
-This was done to create different 'units' of the program to test seperately. 
+The test cases were selected by functionalities/user stories
+This was done to create different 'units' of the program to test separately. 
 Unit testing made debugging more efficient by isolating these units. 
-To test the system as a whole, continous integration testing was used.
+To test the system as a whole, continuous integration testing was used.
 This was done to ensure that the units interacted with each other as required.
 
 Testing Units (by functionality/user stories) - 
@@ -43,7 +43,7 @@ and reminders(and any other information associated to the event) will be shown. 
 means on selecting the specific event or reminder I can see the detailed information.
 
 We opted for a Category Partitioning approach to test this functionality.
-This was done because we seperated the two inputs required for this functionality
+This was done because we separated the two inputs required for this functionality
 i.e. the time period and the event selection. They were then partitioned into 
 different types and the test cases were extracted.
 
@@ -97,7 +97,7 @@ under the 'found' category.
 5. As a user, I can delete events and reminders
 
 We opted for a Category Partitioning approach to test this functionality.
-The arguments were categorised and the test cases were extracted.
+The arguments were categorized and the test cases were extracted.
 
 The factor which is important in deleting events and reminders is
 that the number of events in the selected range can either be zero or more. 
