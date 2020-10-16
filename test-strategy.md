@@ -15,6 +15,10 @@ Since the requirements specifically state that the user can see events from
 5 years in the past to present, we have to check if the program behaves
 as expected on the boundaries. Hence, the boundary testing approach was opted.
 
+Boundaries - 
+Start time (5 years before from the present day)
+End time (present day)
+
 This functionality was divided into 4 test cases - 
 
     1. No events exist
@@ -28,6 +32,10 @@ This functionality was divided into 4 test cases -
 Since the requirements specifically state that the user can see events from
 present to 2 years in the future, we have to check if the program behaves
 as expected on the boundaries. Hence, the boundary testing approach was opted.
+
+Boundaries - 
+Start time (present day)
+End time (2 years after the present day)
 
 This functionality was divided into 4 test cases - 
 
