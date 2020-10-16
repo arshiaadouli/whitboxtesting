@@ -27,6 +27,8 @@ from google.auth.transport.requests import Request
 """
 description: Class representing Calendars
 """
+
+
 class Calendar:
     # If modifying these scopes, delete the file token.pickle.
     SCOPES = ["https://www.googleapis.com/auth/calendar"]
@@ -36,6 +38,7 @@ class Calendar:
     inputs: None
     returns: calendar api
     """
+
     def get_calendar_api(self):
         SCOPES = ["https://www.googleapis.com/auth/calendar"]
 
@@ -71,6 +74,7 @@ class Calendar:
         number_of_events - the number of events user wants to look at
         returns: a list of the details of the number of events requested from the starting_time
     """
+
     def get_upcoming_events(self, api, starting_time, number_of_events):
         """
         Shows basic usage of the Google Calendar API.
@@ -94,6 +98,7 @@ class Calendar:
     inputs: api - calendar api
     returns: a list of the details of events from the present time to 2 years in the future
     """
+
     def get_two_year_event_future(self, api):
 
         starting_time = datetime.datetime.utcnow().isoformat() + 'Z'
@@ -120,6 +125,7 @@ class Calendar:
     inputs: api - calendar api
     returns: a list of the details of events from the 5 years ago to the present time
     """
+
     def get_five_year_event_past(self, api):
 
         ending_time = datetime.datetime.utcnow().isoformat() + 'Z'
@@ -129,7 +135,7 @@ class Calendar:
                                           orderBy='startTime', showDeleted=None).execute()
 
         events = events_result.get('items', [])
-        #return events
+        # return events
         array = []
         for event in events:
             if event['start']['dateTime'] >= starting_time and event['start']['dateTime'] <= ending_time and \
@@ -148,9 +154,11 @@ class Calendar:
     number_of_events - the number of events user wants to look at;
     returns: a list of the details of all the events from the starting_time till ending_time
     """
+
     def get_all_events(self, api, starting_time, ending_time):
 
-        events_result = api.events().list(calendarId='primary', timeMin=starting_time, timeMax=ending_time, singleEvents=True,orderBy='startTime', showDeleted=None).execute()
+        events_result = api.events().list(calendarId='primary', timeMin=starting_time, timeMax=ending_time,
+                                          singleEvents=True, orderBy='startTime', showDeleted=None).execute()
 
         events = events_result.get('items', [])
         return events
@@ -160,17 +168,18 @@ class Calendar:
         inputs: api - calendar api; name - name of the event
         returns: "found" if event of given name found otherwise returns "not found"
     """
+
     def find_events_by_name(self, api, name):
         # the search is done based on the "queried" keyword
         events_result = api.events().list(calendarId='primary', singleEvents=True,
                                           orderBy='startTime', q=name).execute()
         events = events_result.get('items', [])
-        array=[]
+        array = []
         for event in events:
             event_summary = event.get('summary', 'unnamed')
             event_reminders = event.get('reminders', [])
             event_id = event.get('id', 'unknown')
-            json = {'event_summary': event_summary, 'reminders':event_reminders, 'id':event_id}
+            json = {'event_summary': event_summary, 'reminders': event_reminders, 'id': event_id}
             array.append(json)
         for elem in array:
             if name in elem.get("event_summary"):
@@ -186,49 +195,42 @@ class Calendar:
         string - specifies what format user gave input in i.e. (YYYY, YYYY-MM or YYYY-MM-DD);
         returns: a list of the details of all the events from the given time period
     """
+
     def navigate(self, api, year, month, day, string):
-        if string=='year':
+
+        # if time period was in YYYY format
+        if string == 'year':
             startDate = datetime.datetime(year, 1, 1).isoformat() + 'Z'
             endDate = datetime.datetime(year + 1, 1, 1).isoformat() + 'Z'
-        elif string=="month":
+
+        # if time period was in YYYY-MM format
+        elif string == "month":
             if month == 12:
                 endDate = datetime.datetime(year + 1, 1, 1).isoformat() + 'Z'
-            elif month >12:
+            elif month > 12:
                 return []
             else:
                 endDate = datetime.datetime(year, month + 1, 1).isoformat() + 'Z'
 
-        elif string=="day":
+        # if time period was in YYYY-MM-DD format
+        elif string == "day":
             if month == 12:
 
                 try:
-                    endDate = datetime.datetime(year, month, day+1).isoformat() + 'Z'
+                    endDate = datetime.datetime(year, month, day + 1).isoformat() + 'Z'
                 except:
                     endDate = datetime.datetime(year, 1, 1).isoformat() + 'Z'
             else:
                 try:
                     endDate = datetime.datetime(year, month, day + 1).isoformat() + 'Z'
                 except:
-                     endDate = datetime.datetime(year, month+1, 1).isoformat() + 'Z'
+                    endDate = datetime.datetime(year, month + 1, 1).isoformat() + 'Z'
 
-
-
-        # startTime = "T00:00:00+00:00"
-        # 'start': {'dateTime': '2020-09-28T07:30:00+10:00'}, '
         events = []
         try:
             startDate = datetime.datetime(year, month, day).isoformat() + 'Z'
         except:
             return ["error"]
-        """
-        if month == 12:
-            endDate = datetime.datetime(year + 1, 1, day).isoformat() + 'Z'
-        else:
-            try:
-                endDate = datetime.datetime(year, month + 1, day+1).isoformat() + 'Z'
-            except:
-                endDate = datetime.datetime(year, month + 2, 1).isoformat() + 'Z'
-        """
         events = self.get_all_events(api, startDate, endDate)
         return events
 
@@ -251,12 +253,18 @@ class Calendar:
         print(timeList)
         year = timeList[0]
         events = []
+
+        # if time period was in YYYY format
+        # implies timeList = [year]
         if len(timeList) == 1:
-            if year=='':
+            if year == '':
                 events = ['error']
             else:
                 year = int(timeList[0])
-                events = self.navigate(api, year, 1, 1,"year")
+                events = self.navigate(api, year, 1, 1, "year")
+
+        # if time period was in YYYY-MM format
+        # implies timeList = [year,month]
         elif len(timeList) == 2:
             print("time list 2")
             year = int(timeList[0])
@@ -266,6 +274,9 @@ class Calendar:
             events = self.navigate(api, year, month, 1, "month")
             if month > 12:
                 events = ['error']
+
+        # if time period was in YYYY-MM-DD format
+        # implies timeList = [year,month,day]
         elif len(timeList) == 3:
             year = int(timeList[0])
             month = int(timeList[1])
@@ -283,12 +294,10 @@ class Calendar:
         if len(events) > 0:
             event_number = int(input("Select event number"))
 
-
             try:
                 print(events[event_number - 1])
             except:
                 print("Wrong option number entered")
-                print("line 238: ", len(events))
                 return 0
 
         return 1
@@ -301,6 +310,7 @@ class Calendar:
         returns: "Success" if deletion successful, "out of index" if index provided is out of range,
         "Negative index" if index provided is a negative number, otherwise returns "Error" if network issues occur
     """
+
     def delete_event(self, api, events, index):
 
         if (index >= len(events)):
@@ -315,23 +325,8 @@ class Calendar:
             except:  # in case of some network issues
                 return "Error"
 
-    """
-    description: method calls the delete_event method with appropriate arguments
-    inputs: api - calendar api; year - year when user wants the events;
-    id - event id
-    returns: True if deletion successful
-    """
-    def delete_ev(self, api, id):
-        if api.events().delete(calendarId='primary', eventId=id).execute()=='':
-            return True
 
 
-calendar = Calendar()
-api = calendar.get_calendar_api()
-startDate = datetime.datetime(20, 5, 1).isoformat() + 'Z'
-#print(len(calendar.get_all_events(api,startDate,datetime.datetime(2020, 6, 1).isoformat() + 'Z')))
-# print(calendar.navigateUser(api))
-
-# print(calendar.find_events_by_name(api, "zxc"))
-
-# print(startDate)
+# calendar = Calendar()
+# api = calendar.get_calendar_api()
+# print(calendar.get_five_year_event_past(api))
