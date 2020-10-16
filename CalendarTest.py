@@ -101,7 +101,10 @@ class CalendarTest(unittest.TestCase):
         args, kwargs = mock_api.events.return_value.list.call_args_list[0]  # getting the first(only) call's arguments
         ending_time = datetime.datetime.utcnow().isoformat() + 'Z'
         starting_time = (datetime.datetime.utcnow() - datetime.timedelta(days=5 * 365)).isoformat() + 'Z'
-
+        """
+        this below code check the 19 element of timeMin and starting time because they are almost equal and they difference 
+        is around 0.001 seconds
+        """
         self.assertEqual(kwargs['timeMin'][0:19], starting_time[
                                                   0:19])  # asserting whether the starting time is the time which is passed to the timeMin argument
         self.assertEqual(kwargs['timeMax'][0:19], ending_time[
@@ -356,7 +359,6 @@ class CalendarTest(unittest.TestCase):
 
     @patch('Calendar.open')  # accessing calendar events and other details using patching the Calendar.open
     def test_delete_event_valid(self, mock_api):
-        # with patch('Calendar.open') as mock_event:
         cal = Calendar()
 
         mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = [
@@ -387,8 +389,8 @@ class CalendarTest(unittest.TestCase):
             }
         ]  # creating events in mock object for having some test data
 
-        event = cal.get_two_year_event_future(mock_api)
-        self.assertEqual(cal.delete_event(mock_api, event, 3), "Success")
+        event = cal.get_two_year_event_future(mock_api)     # creating events in mock object for having some test data
+        self.assertEqual(cal.delete_event(mock_api, event, 3), "Success")   #assert between the function with valid index and valid index delete message which is success
 
     """
     description: this test case will test the functionality of event_event() function if the index we use
@@ -397,8 +399,7 @@ class CalendarTest(unittest.TestCase):
     """
 
     @patch('Calendar.open')  # accessing calendar events and other details using patching the Calendar.open
-    def test_delete_event_negative(self, mock_api):  # delete_event(api, event, index)
-        # with patch('Calendar.open') as mock_event:
+    def test_delete_event_negative(self, mock_api):
         cal = Calendar()
 
         mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = [
@@ -429,9 +430,10 @@ class CalendarTest(unittest.TestCase):
             }
         ]  # creating events in mock object for having some test data
 
-        event = cal.get_two_year_event_future(mock_api)
+        event = cal.get_two_year_event_future(mock_api)      # creating events in mock object for having some test data
         print(event)
-        self.assertEqual(cal.delete_event(mock_api, event, -2), "Negative index")
+        self.assertEqual(cal.delete_event(mock_api, event, -2), "Negative index")       #assert between the function with negative index and negative index message which is Negative index
+
 
     """
     description: this test case will test the functionality of event_event() function if the index we use
@@ -472,8 +474,8 @@ class CalendarTest(unittest.TestCase):
             }
         ]  # creating events in mock object for having some test data
 
-        event = cal.get_two_year_event_future(mock_api)
-        self.assertEqual(cal.delete_event(mock_api, event, 12), "out of index")
+        event = cal.get_two_year_event_future(mock_api)      # creating events in mock object for having some test data
+        self.assertEqual(cal.delete_event(mock_api, event, 12), "out of index")     #assert between the function with out of range index and out of range index message which is out of index
 
     """
     description: this test case will test the functionality of find_events_by_name when the keyword
@@ -502,15 +504,17 @@ class CalendarTest(unittest.TestCase):
                 'reminders': {'useDefault': True}
             },
         ]  # creating events in mock object for having some test data
-        events = calendar.find_events_by_name(mock_api, "Manika")
-        self.assertEqual(events, "found")
+        events = calendar.find_events_by_name(mock_api, "Manika")   # replacing api with mock object in find_events_by_name
+        # using valid key word in the function argument
+        self.assertEqual(events, "found")   # assert between the function and valid expected output
 
         self.assertEqual(
             mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+            #making sure that the request for getting the events has made only once
         )
 
-        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
-        self.assertEqual(kwargs['q'], q)
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0]  # getting api argument
+        self.assertEqual(kwargs['q'], q)  # check that the keyword has been passed successfully
 
     """
     description: this test case will test the functionality of find_events_by_name when the keyword
@@ -540,14 +544,17 @@ class CalendarTest(unittest.TestCase):
             },
         ]  # creating events in mock object for having some test data
         events = calendar.find_events_by_name(mock_api, "python")
-        self.assertEqual(events, "not found")
+        # replacing api with mock object in find_events_by_name
+        # using valid key word in the function argument
+        self.assertEqual(events, "not found")       # assert between the function and valid expected output
 
         self.assertEqual(
             mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+            # making sure that the request for getting the events has made only once
         )
 
-        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
-        self.assertEqual(kwargs['q'], q)
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0]      # getting api argument
+        self.assertEqual(kwargs['q'], q)        # check that the keyword has been passed successfully
 
     """
     description: this test case is testing navigate function if only year is given as first user input 
