@@ -43,19 +43,20 @@ class CalendarTest(unittest.TestCase):
              }
         ]  # creating events in mock object for having some test data
 
-        event = cal.get_five_year_event_past(mock_api)
+        event = cal.get_five_year_event_past(mock_api) #replace mock with the api in the function
 
         expected_value = [{'event_summary': 'first event', 'reminders': {'useDefault': True}, 'id': '59kstuco11fiikf4v831pmfcte'}]
         self.assertEqual(
             mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+            #checking if the request for getting the events has been made once
         )
-        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0] #getting the first(only) call's arguments
         ending_time = datetime.datetime.utcnow().isoformat() + 'Z'
         starting_time = (datetime.datetime.utcnow() - datetime.timedelta(days=5 * 365)).isoformat() + 'Z'
 
-        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
-        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
-        self.assertEqual(event, expected_value)
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])  #asserting whether the starting time is the time which is passed to the timeMin argument
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])    # asserting whether the ending time is the time which is passed to the timeMax argument
+        self.assertEqual(event, expected_value)     # asserting whether the result of the function is the same as the expected value
 
     """
     description: this test case will test the get_five_year_event_past() when some of the given event(s) are in 
@@ -82,20 +83,21 @@ class CalendarTest(unittest.TestCase):
             }
         ] # creating events in mock object for having some test data
 
-        event = cal.get_five_year_event_past(mock_api)
+        event = cal.get_five_year_event_past(mock_api) #replace mock with the api in the function
 
         expected_value = [
             {'event_summary': 'first event', 'reminders': {'useDefault': True}, 'id': '59kstuco11fiikf4v831pmfcte'}]
         self.assertEqual(
             mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+            # checking if the request for getting the events has been made once
         )
-        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0] #getting the first(only) call's arguments
         ending_time = datetime.datetime.utcnow().isoformat() + 'Z'
         starting_time = (datetime.datetime.utcnow() - datetime.timedelta(days=5 * 365)).isoformat() + 'Z'
 
-        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
-        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
-        self.assertEqual(event, expected_value)
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])  #asserting whether the starting time is the time which is passed to the timeMin argument
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])    # asserting whether the ending time is the time which is passed to the timeMax argument
+        self.assertEqual(event, expected_value)     # asserting whether the result of the function is the same as the expected value
 
 
 
@@ -124,20 +126,21 @@ class CalendarTest(unittest.TestCase):
             }
         ] # creating events in mock object for having some test data
 
-        event = cal.get_five_year_event_past(mock_api)
+        event = cal.get_five_year_event_past(mock_api) #replace mock with the api in the function
 
         expected_value = [
             {'event_summary': 'first event', 'reminders': {'useDefault': True}, 'id': '59kstuco11fiikf4v831pmfcte'}]
         self.assertEqual(
             mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+            # checking if the request for getting the events has been made once
         )
-        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0] #getting the first(only) call's arguments
         ending_time = datetime.datetime.utcnow().isoformat() + 'Z'
         starting_time = (datetime.datetime.utcnow() - datetime.timedelta(days=5 * 365)).isoformat() + 'Z'
 
-        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
-        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
-        self.assertEqual(event, expected_value)
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])  #asserting whether the starting time is the time which is passed to the timeMin argument
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])    # asserting whether the ending time is the time which is passed to the timeMax argument
+        self.assertEqual(event, expected_value)     # asserting whether the result of the function is the same as the expected value
     """
     description: this test case will test the get_five_year_event_past() when no events are given
     inputs: mock_api : it represents the the mock object of the google calendar API
@@ -148,19 +151,20 @@ class CalendarTest(unittest.TestCase):
         # specify ret val
         mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = []
 
-        event = cal.get_five_year_event_past(mock_api)
+        event = cal.get_five_year_event_past(mock_api) #replace mock with the api in the function
 
         expected_value = []
         self.assertEqual(
             mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+            # checking if the request for getting the events has been made once
         )
-        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0]  #getting the first(only) call's arguments
         ending_time = datetime.datetime.utcnow().isoformat() + 'Z'
         starting_time = (datetime.datetime.utcnow() - datetime.timedelta(days=5 * 365)).isoformat() + 'Z'
 
-        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
-        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
-        self.assertEqual(event, expected_value)
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])  #asserting whether the starting time is the time which is passed to the timeMin argument
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])    # asserting whether the ending time is the time which is passed to the timeMax argument
+        self.assertEqual(event, expected_value)     # asserting whether the result of the function is the same as the expected value
 
     """
     description: this test case will test the get_two_year_event_future() when the given event(s) are in next two
@@ -170,7 +174,6 @@ class CalendarTest(unittest.TestCase):
     @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_two_year_event_future_in_range(self, mock_api):
         cal = Calendar()
-        #specify ret val
         mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = [
             {
                 'id': '59kstuco11fiikf4v831pmfcte',
@@ -187,7 +190,7 @@ class CalendarTest(unittest.TestCase):
             }
         ] # creating events in mock object for having some test data
 
-        event = cal.get_two_year_event_future(mock_api)
+        event = cal.get_two_year_event_future(mock_api) #replace mock with the api in the function
 
         expected_value = [
             {'event_summary': 'first event', 'reminders': {'useDefault': True}, 'id': '59kstuco11fiikf4v831pmfcte'},
@@ -196,16 +199,16 @@ class CalendarTest(unittest.TestCase):
         ]
         self.assertEqual(
             mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+            # checking if the request for getting the events has been made once
         )
-        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0] #getting the first(only) call's arguments
         starting_time = datetime.datetime.utcnow().isoformat() + 'Z'
         ending_time = (datetime.datetime.utcnow() + datetime.timedelta(days=2 * 365)).isoformat() + 'Z'
 
 
-        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
-        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
-
-        self.assertEqual(event, expected_value)
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])  #asserting whether the starting time is the time which is passed to the timeMin argument
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])    # asserting whether the ending time is the time which is passed to the timeMax argument
+        self.assertEqual(event, expected_value)     # asserting whether the result of the function is the same as the expected value
     """
     description: this test case will test the get_two_year_event_future() when the given event(s) are in next two
     years from now
@@ -214,7 +217,6 @@ class CalendarTest(unittest.TestCase):
     @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_two_year_event_future_before_range(self, mock_api):
         cal = Calendar()
-        #specify ret val
         mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = [
             {
                 'id': '59kstuco11fiikf4v831pmfcte',
@@ -231,21 +233,21 @@ class CalendarTest(unittest.TestCase):
             }
         ] # creating events in mock object for having some test data
 
-        event = cal.get_two_year_event_future(mock_api)
+        event = cal.get_two_year_event_future(mock_api) # creating events in mock object for having some test data
 
         expected_value = []
         self.assertEqual(
             mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+            # checking if the request for getting the events has been made once
         )
-        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0]  #getting the first(only) call's arguments
         starting_time = datetime.datetime.utcnow().isoformat() + 'Z'
         ending_time = (datetime.datetime.utcnow() + datetime.timedelta(days=2 * 365)).isoformat() + 'Z'
 
 
-        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
-        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
-
-        self.assertEqual(event, expected_value)
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19]) #asserting whether the starting time is the time which is passed to the timeMin argument
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])     # asserting whether the ending time is the time which is passed to the timeMax argument
+        self.assertEqual(event, expected_value)     # asserting whether the result of the function is the same as the expected value
 
     """
     description: this test case will test the get_two_year_event_future() when the given event(s) are started or ended
@@ -255,7 +257,6 @@ class CalendarTest(unittest.TestCase):
     @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_two_year_event_future_after_range(self, mock_api):
         cal = Calendar()
-        #specify ret val
         mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = [
             {
                 'id': '59kstuco11fiikf4v831pmfcte',
@@ -272,7 +273,7 @@ class CalendarTest(unittest.TestCase):
             }
         ] # creating events in mock object for having some test data
 
-        event = cal.get_two_year_event_future(mock_api)
+        event = cal.get_two_year_event_future(mock_api)     # creating events in mock object for having some test data
 
         expected_value = [
 
@@ -281,16 +282,16 @@ class CalendarTest(unittest.TestCase):
         ]
         self.assertEqual(
             mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+            # checking if the request for getting the events has been made once
         )
-        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0] #getting the first(only) call's arguments
         starting_time = datetime.datetime.utcnow().isoformat() + 'Z'
         ending_time = (datetime.datetime.utcnow() + datetime.timedelta(days=2 * 365)).isoformat() + 'Z'
 
 
-        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
-        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
-
-        self.assertEqual(event, expected_value)
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])  #asserting whether the starting time is the time which is passed to the timeMin argument
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])    # asserting whether the ending time is the time which is passed to the timeMax argument
+        self.assertEqual(event, expected_value)     # asserting whether the result of the function is the same as the expected value
     """
     description: this test case will test the get_two_year_event_future() when no events are given
     inputs: mock_api : it represents the the mock object of the google calendar API
@@ -300,21 +301,21 @@ class CalendarTest(unittest.TestCase):
         cal = Calendar()
         mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = []
 
-        event = cal.get_two_year_event_future(mock_api)
+        event = cal.get_two_year_event_future(mock_api)     # creating events in mock object for having some test data
 
         expected_value = []
         self.assertEqual(
             mock_api.events.return_value.list.return_value.execute.return_value.get.call_count, 1
+            # checking if the request for getting the events has been made once
         )
-        args, kwargs = mock_api.events.return_value.list.call_args_list[0]
+        args, kwargs = mock_api.events.return_value.list.call_args_list[0]      #getting the first(only) call's arguments
         starting_time = datetime.datetime.utcnow().isoformat() + 'Z'
         ending_time = (datetime.datetime.utcnow() + datetime.timedelta(days=2 * 365)).isoformat() + 'Z'
 
 
-        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
-        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
-
-        self.assertEqual(event, expected_value)
+        self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])      #asserting whether the starting time is the time which is passed to the timeMin argument
+        self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])        # asserting whether the ending time is the time which is passed to the timeMax argument
+        self.assertEqual(event, expected_value)                             # asserting whether the result of the function is the same as the expected value
 
 
 
