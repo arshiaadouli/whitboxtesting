@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for Calendar.py: 92%</title>
+    <title>Coverage for Calendar.py: 91%</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
     <script type="text/javascript" src="jquery.hotkeys.js"></script>
@@ -17,15 +17,15 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>Calendar.py</b> :
-            <span class="pc_cov">92%</span>
+            <span class="pc_cov">91%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
-            163 statements &nbsp;
+            164 statements &nbsp;
             <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">153 run</button>
-            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">10 missing</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">11 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
-            <button type="button" class="par run show_par shortkey_p button_toggle_par" title="Toggle lines partially run">6 partial</button>
+            <button type="button" class="par run show_par shortkey_p button_toggle_par" title="Toggle lines partially run">7 partial</button>
         </h2>
     </div>
 </div>
@@ -313,8 +313,8 @@
     <p id="t259" class="mis show_mis"><span class="n"><a href="#t259">259</a></span><span class="t">                <span class="key">return</span> <span class="str">"Error"</span>&nbsp;</span><span class="r"></span></p>
     <p id="t260" class="pln"><span class="n"><a href="#t260">260</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t261" class="run"><span class="n"><a href="#t261">261</a></span><span class="t">    <span class="key">def</span> <span class="nam">delete_ev</span><span class="op">(</span><span class="nam">self</span><span class="op">,</span> <span class="nam">api</span><span class="op">,</span> <span class="nam">id</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t262" class="run"><span class="n"><a href="#t262">262</a></span><span class="t">        <span class="key">return</span> <span class="nam">api</span><span class="op">.</span><span class="nam">events</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">delete</span><span class="op">(</span><span class="nam">calendarId</span><span class="op">=</span><span class="str">'primary'</span><span class="op">,</span> <span class="nam">eventId</span><span class="op">=</span><span class="nam">id</span><span class="op">)</span><span class="op">.</span><span class="nam">execute</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t263" class="pln"><span class="n"><a href="#t263">263</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
+    <p id="t262" class="par run show_par"><span class="n"><a href="#t262">262</a></span><span class="t">        <span class="key">if</span> <span class="nam">api</span><span class="op">.</span><span class="nam">events</span><span class="op">(</span><span class="op">)</span><span class="op">.</span><span class="nam">delete</span><span class="op">(</span><span class="nam">calendarId</span><span class="op">=</span><span class="str">'primary'</span><span class="op">,</span> <span class="nam">eventId</span><span class="op">=</span><span class="nam">id</span><span class="op">)</span><span class="op">.</span><span class="nam">execute</span><span class="op">(</span><span class="op">)</span><span class="op">==</span><span class="str">''</span><span class="op">:</span>&nbsp;</span><span class="r"><span class="annotate short">262&#x202F;&#x219B;&#x202F;263</span><span class="annotate long">line 262 didn't jump to line 263, because the condition on line 262 was never true</span></span></p>
+    <p id="t263" class="mis show_mis"><span class="n"><a href="#t263">263</a></span><span class="t">            <span class="key">return</span> <span class="key">True</span>&nbsp;</span><span class="r"></span></p>
     <p id="t264" class="pln"><span class="n"><a href="#t264">264</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t265" class="pln"><span class="n"><a href="#t265">265</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t266" class="run"><span class="n"><a href="#t266">266</a></span><span class="t"><span class="nam">calendar</span> <span class="op">=</span> <span class="nam">Calendar</span><span class="op">(</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
@@ -331,7 +331,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.3</a>,
-            created at 2020-10-16 12:15 +1100
+            created at 2020-10-16 20:11 +1100
         </p>
     </div>
 </div>

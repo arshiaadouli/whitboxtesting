@@ -25,7 +25,11 @@ class CalendarTest(unittest.TestCase):
         args, kwargs = mock_api.events.return_value.list.call_args_list[0]
         self.assertEqual(kwargs['maxResults'], num_events)
 
-
+    """
+    description: this test case will test the get_five_year_event_past() when the given event(s) are in
+    last five years
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('Calendar.open')
     def test_five_year_event_past_in_range(self, mock_api):
         cal = Calendar()
@@ -53,6 +57,11 @@ class CalendarTest(unittest.TestCase):
         self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
         self.assertEqual(event, expected_value)
 
+    """
+    description: this test case will test the get_five_year_event_past() when some of the given event(s) are in 
+    before range(before than last five years)
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('Calendar.open')
     def test_five_year_event_past_before_range(self, mock_api):
         cal = Calendar()
@@ -90,7 +99,11 @@ class CalendarTest(unittest.TestCase):
 
 
 
-
+    """
+    description: this test case will test the get_five_year_event_past() when the given event(s) are created 
+    after todays date
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('Calendar.open')
     def test_five_year_event_past_after_range(self, mock_api):
         cal = Calendar()
@@ -125,7 +138,10 @@ class CalendarTest(unittest.TestCase):
         self.assertEqual(kwargs['timeMin'][0:19], starting_time[0:19])
         self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
         self.assertEqual(event, expected_value)
-
+    """
+    description: this test case will test the get_five_year_event_past() when no events are given
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('Calendar.open')
     def test_five_year_event_past_empty(self, mock_api):
         cal = Calendar()
@@ -146,7 +162,11 @@ class CalendarTest(unittest.TestCase):
         self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
         self.assertEqual(event, expected_value)
 
-
+    """
+    description: this test case will test the get_two_year_event_future() when the given event(s) are in next two
+    years from now
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('Calendar.open')
     def test_two_year_event_future_in_range(self, mock_api):
         cal = Calendar()
@@ -186,7 +206,11 @@ class CalendarTest(unittest.TestCase):
         self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
 
         self.assertEqual(event, expected_value)
-
+    """
+    description: this test case will test the get_two_year_event_future() when the given event(s) are in next two
+    years from now
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('Calendar.open')
     def test_two_year_event_future_before_range(self, mock_api):
         cal = Calendar()
@@ -223,7 +247,11 @@ class CalendarTest(unittest.TestCase):
 
         self.assertEqual(event, expected_value)
 
-
+    """
+    description: this test case will test the get_two_year_event_future() when the given event(s) are started or ended
+    before now
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('Calendar.open')
     def test_two_year_event_future_after_range(self, mock_api):
         cal = Calendar()
@@ -263,7 +291,10 @@ class CalendarTest(unittest.TestCase):
         self.assertEqual(kwargs['timeMax'][0:19], ending_time[0:19])
 
         self.assertEqual(event, expected_value)
-
+    """
+    description: this test case will test the get_two_year_event_future() when no events are given
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('Calendar.open')
     def test_two_year_event_future_empty(self, mock_api):
         cal = Calendar()
@@ -287,9 +318,12 @@ class CalendarTest(unittest.TestCase):
 
 
 
-
+    """
+    description: 
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('Calendar.open')
-    def test_delete_event_valid(self, mock_api):#delete_event(api, event, index)
+    def test_delete_event_valid(self, mock_api):
         # with patch('Calendar.open') as mock_event:
             cal = Calendar()
 
@@ -326,7 +360,10 @@ class CalendarTest(unittest.TestCase):
 
 
 
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('Calendar.open')
     def test_delete_event_negative(self, mock_api):#delete_event(api, event, index)
         # with patch('Calendar.open') as mock_event:
@@ -363,7 +400,10 @@ class CalendarTest(unittest.TestCase):
             event = cal.get_two_year_event_future(mock_api)
             print(event)
             self.assertEqual(cal.delete_event(mock_api, event, -2), "Negative index")
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('Calendar.open')
     def test_delete_event_out_of_range(self, mock_api):#delete_event(api, event, index)
         # with patch('Calendar.open') as mock_event:
@@ -405,7 +445,10 @@ class CalendarTest(unittest.TestCase):
 
 
 
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('Calendar.open')
     def test_delete(self, mock_api):
         # mock_api.return_value.get.return_value = [
@@ -439,7 +482,10 @@ class CalendarTest(unittest.TestCase):
         calendar = Calendar()
         print('deleteEv', calendar.delete_ev(mock_api, '123'))
 
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('Calendar.open')
     def test_search_keyword_found(self, mock_api):
         num_events = 2
@@ -472,7 +518,10 @@ class CalendarTest(unittest.TestCase):
         self.assertEqual(kwargs['q'], q)
 
 
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('Calendar.open')
     def test_search_keyword_notFound(self, mock_api):
         num_events = 2
@@ -504,69 +553,93 @@ class CalendarTest(unittest.TestCase):
         args, kwargs = mock_api.events.return_value.list.call_args_list[0]
         self.assertEqual(kwargs['q'], q)
 
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('builtins.input', side_effect=['2020', '1'])
     def test_navigate_year(self, mock_api):
         cal = Calendar()
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 1)
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('builtins.input', side_effect=['2020-05', '1'])
     def test_navigate_month(self, mock_api):
         cal = Calendar()
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 1)
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('builtins.input', side_effect=['2020-09-16', '1'])
     def test_navigate_day(self, mock_api):
         cal = Calendar()
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 1)
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('builtins.input', side_effect=['2020-12-16'])
     def test_navigate_day_no_event(self, mock_api):
         cal = Calendar()
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 1)
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('builtins.input', side_effect=['2020-12'])
     def test_navigate_month_no_event(self, mock_api):
         cal = Calendar()
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 1)
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('builtins.input', side_effect=['2024'])
     def test_navigate_year_no_event(self, mock_api):
         cal = Calendar()
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 1)
+
     """
-    @patch('builtins.input', side_effect=['23'])
-    def test_navigate_year_invalid_year(self, mock_api):
-        cal = Calendar()
-        result = cal.navigateUser(mock_api)
-        self.assertEqual(result, 0)
-    
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
     """
     @patch('builtins.input', side_effect=['2020-56'])
     def test_navigate_year_invalid_month(self, mock_api):
         cal = Calendar()
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 0)
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('builtins.input', side_effect=['2020-04-78'])
     def test_navigate_year_invalid_day(self, mock_api):
         cal = Calendar()
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 0)
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('builtins.input', side_effect=[''])
     def test_navigate_year_empty(self, mock_api):
         cal = Calendar()
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 0)
 
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('builtins.input', side_effect=['2022','15'])
     def test_navigate_2nd_input_invalid(self, mock_api):
         mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = [
@@ -599,20 +672,29 @@ class CalendarTest(unittest.TestCase):
         cal = Calendar()
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 0)
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('builtins.input', side_effect=['2020', '1'])
     def test_navigate_2nd_input_valid(self, mock_api):
         cal = Calendar()
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 1)
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('builtins.input', side_effect=['2029'])
     def test_navigate_2nd_input_invalid_(self, mock_api):
         cal = Calendar()
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 1)
 
-
+    """
+    description:
+    inputs: mock_api : it represents the the mock object of the google calendar API
+    """
     @patch('builtins.input', side_effect=['2020-12-31'])
     def test_navigate_2nd_input_valid_fullYear(self, mock_api):
         cal = Calendar()
