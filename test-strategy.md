@@ -42,7 +42,11 @@ that I can view the details of events. For example, if the year 2019 is selected
 and reminders(and any other information associated to the event) will be shown. This
 means on selecting the specific event or reminder I can see the detailed information.
 
-Category Partitioning
+We opted for a Category Partitioning approach to test this functionality.
+This was done because we seperated the two inputs required for this functionality
+i.e. the time period and the event selection. They were then partitioned into 
+different types and the test cases were extracted.
+
 This functionality was divided by 2 inputs needed by the program
 And was categorised into a total of 13 test cases. 
 
@@ -76,6 +80,9 @@ This was done to handle all types of input combinations.
 
 4. As a user, I can search events and reminders using different key words.
 
+We opted for a Category Partitioning approach to test this functionality.
+The arguments were categorised and the test cases were extracted.
+
 This functionality was categorised into 2 test cases - 
 
     1. Event found
@@ -89,9 +96,12 @@ under the 'found' category.
 
 5. As a user, I can delete events and reminders
 
+We opted for a Category Partitioning approach to test this functionality.
+The arguments were categorised and the test cases were extracted.
+
 The factor which is important in deleting events and reminders is
 that the number of events in the selected range can either be zero or more. 
-Therefore, we categoriesed the test accroding to the 3 types
+Therefore, we categoriesed the test according to the 3 types
 of input which will have different results.
 
 
