@@ -250,7 +250,6 @@ class Calendar:
     def navigateUser(self, api):
         time = str(input("Enter time period"))
         timeList = time.split('-')
-        print(timeList)
         year = timeList[0]
         events = []
 
@@ -266,10 +265,8 @@ class Calendar:
         # if time period was in YYYY-MM format
         # implies timeList = [year,month]
         elif len(timeList) == 2:
-            print("time list 2")
             year = int(timeList[0])
             month = int(timeList[1])
-            print("month  = " + str(month))
 
             events = self.navigate(api, year, month, 1, "month")
             if month > 12:
@@ -282,7 +279,6 @@ class Calendar:
             month = int(timeList[1])
             day = int(timeList[2])
             events = self.navigate(api, year, month, day, "day")
-        print("events line 175 = " + str(len(events)))
 
         i = 0
         for event in events:
@@ -290,7 +286,6 @@ class Calendar:
                 return 0
             i += 1
             print(str(i) + ". " + str(event.get('summary')) + "\n")
-        print("line 235:", len(events))
         if len(events) > 0:
             event_number = int(input("Select event number"))
 
