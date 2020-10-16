@@ -584,7 +584,7 @@ class CalendarTest(unittest.TestCase):
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 0)
     """
-    description:
+    description:this test case is testing navigate function when invalid day is given
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
     @patch('builtins.input', side_effect=['2020-04-78'])
@@ -593,7 +593,7 @@ class CalendarTest(unittest.TestCase):
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 0)
     """                                                                                                                                                                                                                                                                                                                         
-    description:
+    description: this test case is testing navigate function when empty input is provided
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
     @patch('builtins.input', side_effect=[''])
@@ -603,7 +603,8 @@ class CalendarTest(unittest.TestCase):
         self.assertEqual(result, 0)
 
     """
-    description:
+    description: this test case is testing navigate function when the time period is input correctly but the event 
+    option number selected is invalid i.e. input is out of range
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
     @patch('builtins.input', side_effect=['2022','15'])
@@ -639,7 +640,8 @@ class CalendarTest(unittest.TestCase):
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 0)
     """
-    description:
+    description: this test case is testing navigate function when both, the time period
+    and the event selection option, are input correctly
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
     @patch('builtins.input', side_effect=['2020', '1'])
@@ -648,7 +650,8 @@ class CalendarTest(unittest.TestCase):
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 1)
     """
-    description:
+    description: this test case is testing navigate function when the time period is input correctly but the event
+    option number selected is invalid i.e. input is not provided
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
     @patch('builtins.input', side_effect=['2029'])
@@ -658,7 +661,8 @@ class CalendarTest(unittest.TestCase):
         self.assertEqual(result, 1)
 
     """
-    description:
+    description: this test case is testing navigate function when the time period is input correctly and is in the
+    format YYYY-MM-DD but the event option number is not provided
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
     @patch('builtins.input', side_effect=['2020-12-31'])
