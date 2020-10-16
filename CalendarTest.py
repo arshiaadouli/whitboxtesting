@@ -30,7 +30,7 @@ class CalendarTest(unittest.TestCase):
     last five years
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
-    @patch('Calendar.open')
+    @patch('Calendar.open')  # accessing calendar events and other details using patching the Calendar.open
     def test_five_year_event_past_in_range(self, mock_api):
         cal = Calendar()
         # specify ret val
@@ -41,7 +41,7 @@ class CalendarTest(unittest.TestCase):
              'end': {'dateTime': '2018-10-15T08:30:00+11:00'},
              'reminders': {'useDefault': True}
              }
-        ]
+        ]  # creating events in mock object for having some test data
 
         event = cal.get_five_year_event_past(mock_api)
 
@@ -62,7 +62,7 @@ class CalendarTest(unittest.TestCase):
     before range(before than last five years)
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
-    @patch('Calendar.open')
+    @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_five_year_event_past_before_range(self, mock_api):
         cal = Calendar()
         # specify ret val
@@ -80,7 +80,7 @@ class CalendarTest(unittest.TestCase):
                 'end': {'dateTime': '2011-10-15T08:30:00+11:00'},
                 'reminders': {'useDefault': True}
             }
-        ]
+        ] # creating events in mock object for having some test data
 
         event = cal.get_five_year_event_past(mock_api)
 
@@ -104,7 +104,7 @@ class CalendarTest(unittest.TestCase):
     after todays date
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
-    @patch('Calendar.open')
+    @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_five_year_event_past_after_range(self, mock_api):
         cal = Calendar()
         # specify ret val
@@ -122,7 +122,7 @@ class CalendarTest(unittest.TestCase):
                 'end': {'dateTime': '2022-10-15T08:30:00+11:00'},
                 'reminders': {'useDefault': True}
             }
-        ]
+        ] # creating events in mock object for having some test data
 
         event = cal.get_five_year_event_past(mock_api)
 
@@ -142,7 +142,7 @@ class CalendarTest(unittest.TestCase):
     description: this test case will test the get_five_year_event_past() when no events are given
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
-    @patch('Calendar.open')
+    @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_five_year_event_past_empty(self, mock_api):
         cal = Calendar()
         # specify ret val
@@ -167,7 +167,7 @@ class CalendarTest(unittest.TestCase):
     years from now
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
-    @patch('Calendar.open')
+    @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_two_year_event_future_in_range(self, mock_api):
         cal = Calendar()
         #specify ret val
@@ -185,7 +185,7 @@ class CalendarTest(unittest.TestCase):
                 'end': {'dateTime': '2022-10-15T08:30:00+11:00'},
                 'reminders': {'useDefault': True}
             }
-        ]
+        ] # creating events in mock object for having some test data
 
         event = cal.get_two_year_event_future(mock_api)
 
@@ -211,7 +211,7 @@ class CalendarTest(unittest.TestCase):
     years from now
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
-    @patch('Calendar.open')
+    @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_two_year_event_future_before_range(self, mock_api):
         cal = Calendar()
         #specify ret val
@@ -229,7 +229,7 @@ class CalendarTest(unittest.TestCase):
                 'end': {'dateTime': '2019-10-15T08:30:00+11:00'},
                 'reminders': {'useDefault': True}
             }
-        ]
+        ] # creating events in mock object for having some test data
 
         event = cal.get_two_year_event_future(mock_api)
 
@@ -252,7 +252,7 @@ class CalendarTest(unittest.TestCase):
     before now
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
-    @patch('Calendar.open')
+    @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_two_year_event_future_after_range(self, mock_api):
         cal = Calendar()
         #specify ret val
@@ -270,7 +270,7 @@ class CalendarTest(unittest.TestCase):
                 'end': {'dateTime': '2025-10-15T08:30:00+11:00'},
                 'reminders': {'useDefault': True}
             }
-        ]
+        ] # creating events in mock object for having some test data
 
         event = cal.get_two_year_event_future(mock_api)
 
@@ -295,7 +295,7 @@ class CalendarTest(unittest.TestCase):
     description: this test case will test the get_two_year_event_future() when no events are given
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
-    @patch('Calendar.open')
+    @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_two_year_event_future_empty(self, mock_api):
         cal = Calendar()
         mock_api.events.return_value.list.return_value.execute.return_value.get.return_value = []
@@ -323,7 +323,7 @@ class CalendarTest(unittest.TestCase):
     is valid (in range index)
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
-    @patch('Calendar.open')
+    @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_delete_event_valid(self, mock_api):
         # with patch('Calendar.open') as mock_event:
             cal = Calendar()
@@ -354,7 +354,7 @@ class CalendarTest(unittest.TestCase):
                     'end': {'dateTime': '2022-11-15T08:30:00+11:00'},
                     'reminders': {'useDefault': True}
                 }
-            ]
+            ] # creating events in mock object for having some test data
 
             event = cal.get_two_year_event_future(mock_api)
             self.assertEqual(cal.delete_event(mock_api, event, 3), "Success")
@@ -366,7 +366,7 @@ class CalendarTest(unittest.TestCase):
     is negative(invalid)
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
-    @patch('Calendar.open')
+    @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_delete_event_negative(self, mock_api):#delete_event(api, event, index)
         # with patch('Calendar.open') as mock_event:
             cal = Calendar()
@@ -397,7 +397,7 @@ class CalendarTest(unittest.TestCase):
                     'end': {'dateTime': '2022-10-15T08:30:00+11:00'},
                     'reminders': {'useDefault': True}
                 }
-            ]
+            ] # creating events in mock object for having some test data
 
             event = cal.get_two_year_event_future(mock_api)
             print(event)
@@ -407,7 +407,7 @@ class CalendarTest(unittest.TestCase):
     is out of range(similar to index error)
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
-    @patch('Calendar.open')
+    @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_delete_event_out_of_range(self, mock_api):#delete_event(api, event, index)
         # with patch('Calendar.open') as mock_event:
             cal = Calendar()
@@ -438,7 +438,7 @@ class CalendarTest(unittest.TestCase):
                     'end': {'dateTime': '2022-10-15T08:30:00+11:00'},
                     'reminders': {'useDefault': True}
                 }
-            ]
+            ] # creating events in mock object for having some test data
 
             event = cal.get_two_year_event_future(mock_api)
             self.assertEqual(cal.delete_event(mock_api, event, 12), "out of index")
@@ -448,7 +448,7 @@ class CalendarTest(unittest.TestCase):
     is in existed the event summary 
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
-    @patch('Calendar.open')
+    @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_search_keyword_found(self, mock_api):
         num_events = 2
         time = "2020-08-03T00:00:00.000000Z"
@@ -468,7 +468,7 @@ class CalendarTest(unittest.TestCase):
                 'end': {'dateTime': '2018-10-15T08:30:00+11:00'},
                 'reminders': {'useDefault': True}
             },
-        ]
+        ] # creating events in mock object for having some test data
         events = calendar.find_events_by_name(mock_api, "Manika")
         self.assertEqual(events, "found")
 
@@ -485,7 +485,7 @@ class CalendarTest(unittest.TestCase):
     is in NOT existed the event summary 
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
-    @patch('Calendar.open')
+    @patch('Calendar.open') # accessing calendar events and other details using patching the Calendar.open
     def test_search_keyword_notFound(self, mock_api):
         num_events = 2
         time = "2020-08-03T00:00:00.000000Z"
@@ -505,7 +505,7 @@ class CalendarTest(unittest.TestCase):
                 'end': {'dateTime': '2018-10-15T08:30:00+11:00'},
                 'reminders': {'useDefault': True}
             },
-        ]
+        ] # creating events in mock object for having some test data
         events = calendar.find_events_by_name(mock_api, "python")
         self.assertEqual(events, "not found")
 
@@ -592,7 +592,7 @@ class CalendarTest(unittest.TestCase):
         cal = Calendar()
         result = cal.navigateUser(mock_api)
         self.assertEqual(result, 0)
-    """
+    """                                                                                                                                                                                                                                                                                                                         
     description:
     inputs: mock_api : it represents the the mock object of the google calendar API
     """
