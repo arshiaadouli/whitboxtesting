@@ -80,6 +80,12 @@ under the 'found' category.
 
 5. As a user, I can delete events and reminders
 
+The factor which is important in deleting events and reminders is
+that the number of events in the selected range can either be zero or more. 
+Therefore, we categoriesed the test accroding to the 3 types
+of input which will have different results.
+
+
 This functionality was categorised into 3 test cases -
 
     1. Valid event
